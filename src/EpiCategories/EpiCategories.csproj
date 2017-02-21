@@ -186,6 +186,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientResources\Scripts\contentediting\CategorySelector.js" />
+    <Content Include="ClientResources\Scripts\contentediting\CategorySelectorTreeDialog.js" />
+    <Content Include="ClientResources\Scripts\contentediting\templates\CategorySelector.html" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
