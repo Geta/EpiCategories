@@ -200,6 +200,8 @@
     <Compile Include="EditorDescriptors\CategorySelectionEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\HideCategoryEditorDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routing\CategoryPartialRouter.cs" />
+    <Compile Include="Routing\CategoryRoutingConstants.cs" />
     <Compile Include="UIDescriptors\CategoryDataUIDescriptor.cs" />
   </ItemGroup>
   <PropertyGroup>

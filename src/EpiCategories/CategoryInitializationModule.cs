@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Routing;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Data;
@@ -6,6 +7,8 @@ using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
+using EPiServer.Web.Routing;
+using Geta.EpiCategories.Routing;
 
 namespace Geta.EpiCategories
 {
@@ -17,6 +20,8 @@ namespace Geta.EpiCategories
         {
             var contentEvents = context.Locate.ContentEvents();
             contentEvents.CreatingContent += OnCreatingContent;
+
+            RouteTable.Routes.RegisterPartialRouter(new CategoryPartialRouter(context.Locate.ContentLoader()));
         }
 
         public void Uninitialize(InitializationEngine context)

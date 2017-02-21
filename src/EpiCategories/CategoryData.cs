@@ -24,16 +24,16 @@ namespace Geta.EpiCategories
         [CultureSpecific]
         public virtual bool IsSelectable { get; set; }
 
-        public override void SetDefaultValues(ContentType contentType)
-        {
-            base.SetDefaultValues(contentType);
-            IsSelectable = true;
-        }
-
         string IRoutable.RouteSegment
         {
             get { return URLSegment; }
             set { URLSegment = value; }
+        }
+
+        public override void SetDefaultValues(ContentType contentType)
+        {
+            base.SetDefaultValues(contentType);
+            IsSelectable = true;
         }
     }
 }
