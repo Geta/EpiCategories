@@ -3,15 +3,17 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.Web;
+using EPiServer.Web.Routing;
 
 namespace Geta.EpiCategories
 {
     [ContentType(GUID = "ef0422aa-e1f7-476e-b7f7-50d76db7201f")]
-    public class CategoryData : StandardContentBase
+    public class CategoryData : StandardContentBase, IRoutable
     {
-        [Display(Order = 10)]
-        [Required]
-        public virtual string SystemName { get; set; }
+        [UIHint(UIHint.PreviewableText)]
+        [ScaffoldColumn(false)]
+        [CultureSpecific]
+        public virtual string URLSegment { get; set; }
 
         [Display(Order = 20)]
         [UIHint(UIHint.LongString)]
@@ -26,6 +28,12 @@ namespace Geta.EpiCategories
         {
             base.SetDefaultValues(contentType);
             IsSelectable = true;
+        }
+
+        string IRoutable.RouteSegment
+        {
+            get { return URLSegment; }
+            set { URLSegment = value; }
         }
     }
 }

@@ -192,6 +192,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryInitializationModule.cs" />
     <Compile Include="CategoryTreeComponent.cs" />
     <Compile Include="CategoryContentRepositoryDescriptor.cs" />
     <Compile Include="CategoryData.cs" />
