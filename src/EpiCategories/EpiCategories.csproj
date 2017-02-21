@@ -189,7 +189,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClientResources\Scripts\component\CategoryNavigationTree.js" />
     <Content Include="Web.config" />
+    <Content Include="Geta.EpiCategories.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryInitializationModule.cs" />
@@ -203,6 +205,9 @@
     <Compile Include="Routing\CategoryPartialRouter.cs" />
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
     <Compile Include="UIDescriptors\CategoryDataUIDescriptor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="module.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

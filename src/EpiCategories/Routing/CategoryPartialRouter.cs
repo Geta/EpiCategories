@@ -1,4 +1,5 @@
-﻿using System.Web.Routing;
+﻿using System;
+using System.Web.Routing;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Web.Routing;
@@ -29,12 +30,11 @@ namespace Geta.EpiCategories.Routing
             {
                 var category = ContentLoader.GetBySegment(ContentReference.RootPage, nextSegment.Next, LanguageSelector.Fallback(content.LanguageBranch, true)) as CategoryData;
 
-                if (category != null)
-                {
-                    segmentContext.RemainingPath = thisSegment.Substring(0, thisSegment.LastIndexOf(nextSegment.Next));
-                    segmentContext.RouteData.Values.Add(CategoryRoutingConstants.CurrentCategory, category);
-                    return content;
-                }
+                if (category == null) return null;
+
+                segmentContext.RemainingPath = thisSegment.Substring(0, thisSegment.LastIndexOf(nextSegment.Next, StringComparison.InvariantCultureIgnoreCase));
+                segmentContext.RouteData.Values.Add(CategoryRoutingConstants.CurrentCategory, category);
+                return content;
             }
 
             return null;
