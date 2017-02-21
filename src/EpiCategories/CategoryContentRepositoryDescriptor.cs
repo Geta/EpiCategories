@@ -32,6 +32,16 @@ namespace Geta.EpiCategories
             typeof (CategoryData)
         };
 
+        public override IEnumerable<ContentReference> Roots => new[]
+        {
+            ServiceLocator.Current.GetInstance<ICategoryContentRepository>().GetRootLink()
+        };
+
+        public override IEnumerable<Type> MainNavigationTypes => new[]
+        {
+            typeof(CategoryData)
+        };
+
         public override string SearchArea => "cms/categories";
 
         public override string CustomNavigationWidget => "geta-epicategories/component/CategoryNavigationTree";
