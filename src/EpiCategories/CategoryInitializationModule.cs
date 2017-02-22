@@ -6,15 +6,17 @@ using EPiServer.Data;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
+using EPiServer.ServiceLocation.Compatibility;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
 using Geta.EpiCategories.Routing;
+using StructureMap;
 
 namespace Geta.EpiCategories
 {
     [InitializableModule]
     [ModuleDependency(typeof(DataInitialization))]
-    public class CategoryInitializationModule : IInitializableModule
+    public class CategoryInitializationModule : IConfigurableModule
     {
         public void Initialize(InitializationEngine context)
         {
@@ -27,6 +29,17 @@ namespace Geta.EpiCategories
         public void Uninitialize(InitializationEngine context)
         {
             ServiceLocator.Current.GetInstance<IContentEvents>().CreatingContent -= OnCreatingContent;
+        }
+
+        public void ConfigureContainer(ServiceConfigurationContext context)
+        {
+            ConfigureContainer(context.Services);
+        }
+
+        private static void ConfigureContainer(IServiceConfigurationProvider services)
+        {
+            services.AddSingleton<ICategoryContentRepository, DefaultCategoryContentRepository>();
+            services.AddSingleton<IContentInCategoryLocator, DefaultContentInCategoryLocator>();
         }
 
         private void OnCreatingContent(object sender, ContentEventArgs args)
