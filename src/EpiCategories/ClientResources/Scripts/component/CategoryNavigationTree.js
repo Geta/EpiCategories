@@ -27,8 +27,8 @@ function (
         res: res,
 
         postMixInProperties: function () {
-            console.log("hejejjejej");
-        },
+            this.inherited(arguments);
+        }
 
     });
 });

@@ -20,7 +20,7 @@
 
     // epi
     "epi-cms/widget/_HasChildDialogMixin",
-    "geta-epicategories/contentediting/CategorySelectorTreeDialog",
+    "geta-epicategories/contentediting/CategorySelectorDialog",
     "epi/shell/widget/_ValueRequiredMixin",
     "epi/dependency",
     "epi/epi",
@@ -75,7 +75,7 @@ function (
         _categories: null,
         _categoriesParentsName: {},
 
-        repositoryKey: "categories", // should be able to filter based on parameter?
+        repositoryKey: "categories", // fetch value from descriptor instead
 
         focus: function () {
             this.button.focus();
