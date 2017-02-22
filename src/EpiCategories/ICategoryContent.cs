@@ -3,8 +3,8 @@ using EPiServer.Core;
 
 namespace Geta.EpiCategories
 {
-    public interface ICategoryContent : IContentData
+    public interface ICategoryContent : IContent
     {
-         IEnumerable<ContentReference> Categories { get; set; } 
+         ContentCategoryList Categories { get; set; } 
     }
 }

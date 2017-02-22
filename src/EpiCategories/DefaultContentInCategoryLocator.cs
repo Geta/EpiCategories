@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using EPiServer;
@@ -20,35 +19,43 @@ namespace Geta.EpiCategories
             LanguageResolver = languageResolver;
         }
 
-        public virtual IEnumerable<T> GetDescendents<T>(ContentReference parentLink, IEnumerable<ContentReference> categories) where T : ICategoryContent
+        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, ContentCategoryList categories) where T : ICategoryContent
         {
-            throw new NotImplementedException();
+            return GetDescendents<T>(contentLink, categories, CreateDefaultListLoaderOptions());
         }
 
-        public virtual IEnumerable<T> GetDescendents<T>(ContentReference parentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategoryContent
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual IEnumerable<T> GetDescendents<T>(ContentReference parentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategoryContent
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual IEnumerable<T> GetChildren<T>(ContentReference parentLink, IEnumerable<ContentReference> categories) where T : ICategoryContent
-        {
-            return GetChildren<T>(parentLink, categories, CreateDefaultListLoaderOptions());
-        }
-
-        public virtual IEnumerable<T> GetChildren<T>(ContentReference parentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategoryContent
+        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, ContentCategoryList categories, CultureInfo culture) where T : ICategoryContent
         {
             var loaderOptions = new LoaderOptions { LanguageLoaderOption.Specific(culture) };
-            return GetChildren<T>(parentLink, categories, loaderOptions);
+            return GetDescendents<T>(contentLink, categories, loaderOptions);
         }
 
-        public virtual IEnumerable<T> GetChildren<T>(ContentReference parentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategoryContent
+        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, ContentCategoryList categories, LoaderOptions loaderOptions) where T : ICategoryContent
         {
-            return ContentLoader.GetChildren<T>(parentLink, loaderOptions).Where(x => x.Categories.ContainsAny(categories));
+            var descendents = ContentLoader.GetDescendents(contentLink);
+
+            return ContentLoader
+                .GetItems(descendents, loaderOptions)
+                .OfType<T>()
+                .Where(x => x.Categories.ContainsAny(categories));
+        }
+
+        public virtual IEnumerable<T> GetChildren<T>(ContentReference contentLink, ContentCategoryList categories) where T : ICategoryContent
+        {
+            return GetChildren<T>(contentLink, categories, CreateDefaultListLoaderOptions());
+        }
+
+        public virtual IEnumerable<T> GetChildren<T>(ContentReference contentLink, ContentCategoryList categories, CultureInfo culture) where T : ICategoryContent
+        {
+            var loaderOptions = new LoaderOptions { LanguageLoaderOption.Specific(culture) };
+            return GetChildren<T>(contentLink, categories, loaderOptions);
+        }
+
+        public virtual IEnumerable<T> GetChildren<T>(ContentReference contentLink, ContentCategoryList categories, LoaderOptions loaderOptions) where T : ICategoryContent
+        {
+            return ContentLoader
+                .GetChildren<T>(contentLink, loaderOptions)
+                .Where(x => x.Categories.ContainsAny(categories));
         }
 
         protected virtual LoaderOptions CreateDefaultListLoaderOptions()

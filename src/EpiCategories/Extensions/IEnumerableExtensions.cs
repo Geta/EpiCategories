@@ -8,6 +8,11 @@ namespace Geta.EpiCategories.Extensions
     {
         public static bool ContainsAny(this IEnumerable<ContentReference> contentLinks, IEnumerable<ContentReference> otherContentLinks)
         {
+            if (otherContentLinks == null || otherContentLinks.Any() == false)
+            {
+                return true;
+            }
+
             if (contentLinks == null)
             {
                 return false;
