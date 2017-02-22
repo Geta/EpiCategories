@@ -199,14 +199,17 @@
     <Content Include="Geta.EpiCategories.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryBackingTypeResolver.cs" />
     <Compile Include="CategoryInitializationModule.cs" />
     <Compile Include="CategoryTreeComponent.cs" />
     <Compile Include="CategoryContentRepositoryDescriptor.cs" />
     <Compile Include="CategoryData.cs" />
+    <Compile Include="ContentCategoryList.cs" />
     <Compile Include="DefaultCategoryContentRepository.cs" />
     <Compile Include="DefaultContentInCategoryLocator.cs" />
     <Compile Include="EditorDescriptors\CategoryListEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\CategoryEditorDescriptor.cs" />
+    <Compile Include="EditorDescriptors\ContentCategoryListEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\HideCategoryEditorDescriptor.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="RootCategoryData.cs" />
     <Compile Include="Routing\CategoryPartialRouter.cs" />
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
+    <Compile Include="SpecializedProperties\PropertyContentCategoryList.cs" />
     <Compile Include="UIDescriptors\CategoryDataUIDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
