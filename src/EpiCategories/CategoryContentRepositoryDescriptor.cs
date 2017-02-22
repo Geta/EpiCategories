@@ -51,7 +51,6 @@ namespace Geta.EpiCategories
 
         public override IEnumerable<Type> MainNavigationTypes => new[]
         {
-            typeof(ContentFolder),
             typeof(CategoryData)
         };
 
