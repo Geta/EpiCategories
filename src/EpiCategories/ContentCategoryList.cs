@@ -11,21 +11,21 @@ namespace Geta.EpiCategories
     public class ContentCategoryList : IComparable, IList<ContentReference>, IReadOnly<ContentCategoryList>, IReadOnlyCollection<ContentReference>, IModifiedTrackable, IEquatable<ContentCategoryList>, IEnumerable<string>
     {
         private bool _isModified;
-        protected List<ContentReference> InnerList;
+        private List<ContentReference> _innerList;
 
         public ContentCategoryList()
         {
-            InnerList = new List<ContentReference>();
+            _innerList = new List<ContentReference>();
         }
 
         public ContentCategoryList(IEnumerable<ContentReference> categories)
         {
-            InnerList = new List<ContentReference>(categories);
+            _innerList = new List<ContentReference>(categories);
         }
 
         public int Count
         {
-            get { return InnerList.Count; }
+            get { return _innerList.Count; }
         }
 
         public virtual bool IsEmpty
@@ -45,53 +45,67 @@ namespace Geta.EpiCategories
 
         public virtual bool IsReadOnly { get; private set; }
 
+        public static bool operator ==(ContentCategoryList x, ContentCategoryList y)
+        {
+            if (x == y)
+                return true;
+            if (x == null || y == null)
+                return false;
+            return x.Equals(y);
+        }
+
+        public static bool operator !=(ContentCategoryList x, ContentCategoryList y)
+        {
+            return x == y == false;
+        }
+
         public void Add(ContentReference item)
         {
             ThrowIfReadOnly();
 
-            if (InnerList.Contains(item))
+            if (_innerList.Contains(item))
             {
                 return;
             }
 
-            InnerList.Add(item);
+            _innerList.Add(item);
             _isModified = true;
         }
 
         public void Clear()
         {
             ThrowIfReadOnly();
-            InnerList.Clear();
+            _innerList.Clear();
             _isModified = true;
         }
 
         public int CompareTo(object x)
         {
-            if (GetType() != x.GetType())
+            if (this.GetType() != x.GetType())
                 throw new ArgumentException("Object not of the same type");
 
             if (this == (ContentCategoryList) x)
                 return 0;
 
-            return Count > ((ContentCategoryList) x).Count ? 1 : -1;
+            return this.Count > ((ContentCategoryList) x).Count ? 1 : -1;
         }
 
         public bool Contains(ContentReference item)
         {
-            return InnerList.Any(x => x.CompareToIgnoreWorkID(item));
+            return _innerList.Any(x => x.CompareToIgnoreWorkID(item));
         }
 
         public ContentCategoryList Copy()
         {
             var categoryList = (ContentCategoryList)MemberwiseClone();
-            var list = new List<ContentReference>(InnerList);
-            categoryList.InnerList = list;
+            var list = new List<ContentReference>(_innerList);
+            categoryList._innerList = list;
             return categoryList;
         }
 
         public void CopyTo(ContentReference[] array, int arrayIndex)
         {
-            InnerList.CopyTo(array, arrayIndex);
+            _innerList.CopyTo(array, arrayIndex);
         }
 
         public ContentCategoryList CreateWritableClone()
@@ -115,7 +129,7 @@ namespace Geta.EpiCategories
                 return true;
 
             if (Count == other.Count)
-                return other.MemberOfAll(InnerList);
+                return other.MemberOfAll(_innerList);
 
             return false;
         }
@@ -127,12 +141,12 @@ namespace Geta.EpiCategories
 
         IEnumerator<string> IEnumerable<string>.GetEnumerator()
         {
-            return InnerList.Select(x => x.ToReferenceWithoutVersion().ToString()).GetEnumerator();
+            return _innerList.Select(x => x.ToReferenceWithoutVersion().ToString()).GetEnumerator();
         }
 
         public IEnumerator<ContentReference> GetEnumerator()
         {
-            return InnerList.GetEnumerator();
+            return _innerList.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -142,18 +156,18 @@ namespace Geta.EpiCategories
 
         public override int GetHashCode()
         {
-            return InnerList.GetHashCode();
+            return _innerList.GetHashCode();
         }
 
         public int IndexOf(ContentReference item)
         {
-            return InnerList.IndexOf(item);
+            return _innerList.IndexOf(item);
         }
 
         public void Insert(int index, ContentReference item)
         {
             ThrowIfReadOnly();
-            InnerList.Insert(index, item);
+            _innerList.Insert(index, item);
             _isModified = true;
         }
 
@@ -191,13 +205,13 @@ namespace Geta.EpiCategories
             }
 
             _isModified = true;
-            return InnerList.Remove(item);
+            return _innerList.Remove(item);
         }
 
         public void RemoveAt(int index)
         {
             ThrowIfReadOnly();
-            InnerList.RemoveAt(index);
+            _innerList.RemoveAt(index);
             _isModified = true;
         }
 
@@ -208,27 +222,13 @@ namespace Geta.EpiCategories
 
         public ContentReference this[int index]
         {
-            get { return InnerList[index]; }
+            get { return _innerList[index]; }
             set
             {
                 ThrowIfReadOnly();
                 _isModified = true;
-                InnerList[index] = value;
+                _innerList[index] = value;
             }
-        }
-
-        public static bool operator ==(ContentCategoryList x, ContentCategoryList y)
-        {
-            if (x == y)
-                return true;
-            if (x == null || y == null)
-                return false;
-            return x.Equals(y);
-        }
-
-        public static bool operator !=(ContentCategoryList x, ContentCategoryList y)
-        {
-            return x == y == false;
         }
 
         protected void ThrowIfReadOnly()

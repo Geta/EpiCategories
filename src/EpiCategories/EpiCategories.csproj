@@ -198,6 +198,7 @@
     <Content Include="Geta.EpiCategories.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryBackingTypeResolver.cs" />
     <Compile Include="CategoryInitializationModule.cs" />
     <Compile Include="CategoryTreeComponent.cs" />
     <Compile Include="CategoryContentRepositoryDescriptor.cs" />
