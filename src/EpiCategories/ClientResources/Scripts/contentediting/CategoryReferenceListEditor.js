@@ -81,59 +81,15 @@ function (
             this.button.focus();
         },
 
-        postMixInProperties: function () {
-            // summary:
-            //      Initialize properties
-            // tags:
-            //      protected
-
-            this.inherited(arguments);
-
-
-            //if (!this.store) {
-            //    var registry = dependency.resolve("epi.storeregistry");
-            //    this.store = registry.get("epicategories");
-            //}
-
-        },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // opens the dialog with category selector
         _onButtonClick: function () {
-            //summary:
-            //    Handle add category button click
-            // tags:
-            //    private
-
             if (!this.dialog) {
                 this._createDialog();
             }
-
             this.dialog.show(true);
         },
 
-
-
-        // creates the dialog for the actual picker
         _createDialog: function () {
-            // summary:
-            //		Create page tree dialog
-            // tags:
-            //    protected
-
             this.categorySelectorDialog = new CategorySelectorTreeDialog({
                 repositoryKey: this.repositoryKey
 
@@ -163,7 +119,6 @@ function (
             //    private
 
             var categoriesSelected = this.categorySelectorDialog.get("value");
-
             this.set("value", categoriesSelected);
         },
 
@@ -191,15 +146,6 @@ function (
             this.focus();
             this.isShowingChildDialog = false;
         },
-
-
-
-
-
-
-
-
-
 
         _getCategoriesParentsNameClone: function () {
             //summary:

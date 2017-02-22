@@ -186,6 +186,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientResources\Scripts\component\templates\_CategoryTreeNode.html" />
+    <Content Include="ClientResources\Scripts\component\_CategoryTreeNode.js" />
     <Content Include="ClientResources\Scripts\contentediting\CategoryReferenceListEditor.js" />
     <Content Include="ClientResources\Scripts\contentediting\CategorySelectorDialog.js" />
     <Content Include="ClientResources\Scripts\contentediting\templates\CategoryReferenceListEditor.html" />
