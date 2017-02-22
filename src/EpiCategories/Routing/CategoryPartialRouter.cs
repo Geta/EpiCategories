@@ -1,22 +1,26 @@
 ﻿using System;
+using System.Globalization;
 using System.Web.Routing;
 using EPiServer;
 using EPiServer.Core;
+using EPiServer.Globalization;
 using EPiServer.Web.Routing;
 using EPiServer.Web.Routing.Segments;
 
 namespace Geta.EpiCategories.Routing
 {
-    public class CategoryPartialRouter : IPartialRouter<PageData, CategoryData>
+    public class CategoryPartialRouter : IPartialRouter<ICategoryRoutableContent, PageData>
     {
         protected readonly IContentLoader ContentLoader;
+        protected readonly ICategoryContentRepository CategoryRepository;
 
-        public CategoryPartialRouter(IContentLoader contentLoader)
+        public CategoryPartialRouter(IContentLoader contentLoader, ICategoryContentRepository categoryRepository)
         {
             ContentLoader = contentLoader;
+            CategoryRepository = categoryRepository;
         }
 
-        public object RoutePartial(PageData content, SegmentContext segmentContext)
+        public object RoutePartial(ICategoryRoutableContent content, SegmentContext segmentContext)
         {
             var thisSegment = segmentContext.RemainingPath;
             var nextSegment = segmentContext.GetNextValue(segmentContext.RemainingPath);
@@ -28,9 +32,12 @@ namespace Geta.EpiCategories.Routing
 
             if (string.IsNullOrWhiteSpace(nextSegment.Next) == false)
             {
-                var category = ContentLoader.GetBySegment(ContentReference.RootPage, nextSegment.Next, LanguageSelector.Fallback(content.LanguageBranch, true)) as CategoryData;
+                var localizableContent = content as ILocale;
+                CultureInfo preferredCulture = localizableContent?.Language ?? ContentLanguage.PreferredCulture;
+                var category = CategoryRepository.GetFirstBySegment<CategoryData>(nextSegment.Next, preferredCulture);
 
-                if (category == null) return null;
+                if (category == null)
+                    return null;
 
                 segmentContext.RemainingPath = thisSegment.Substring(0, thisSegment.LastIndexOf(nextSegment.Next, StringComparison.InvariantCultureIgnoreCase));
                 segmentContext.RouteData.Values.Add(CategoryRoutingConstants.CurrentCategory, category);
@@ -40,9 +47,26 @@ namespace Geta.EpiCategories.Routing
             return null;
         }
 
-        public PartialRouteData GetPartialVirtualPath(CategoryData content, string language, RouteValueDictionary routeValues, RequestContext requestContext)
+        public PartialRouteData GetPartialVirtualPath(PageData content, string language, RouteValueDictionary routeValues, RequestContext requestContext)
         {
-            return null;
+            object currentCategory;
+
+            if (content is ICategoryRoutableContent == false || routeValues.TryGetValue(CategoryRoutingConstants.CurrentCategory, out currentCategory) == false)
+                return null;
+
+            ContentReference categoryLink = (ContentReference) currentCategory;
+            CategoryData category;
+
+            if (CategoryRepository.TryGet(categoryLink, out category) == false)
+                return null;
+
+            routeValues.Remove(CategoryRoutingConstants.CurrentCategory);
+
+            return new PartialRouteData
+            {
+                BasePathRoot = content.ContentLink,
+                PartialVirtualPath = $"{category.URLSegment}/"
+            };
         }
     }
 }

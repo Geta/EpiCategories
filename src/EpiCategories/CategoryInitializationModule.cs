@@ -21,7 +21,7 @@ namespace Geta.EpiCategories
             var contentEvents = context.Locate.ContentEvents();
             contentEvents.CreatingContent += OnCreatingContent;
 
-            RouteTable.Routes.RegisterPartialRouter(new CategoryPartialRouter(context.Locate.ContentLoader()));
+            RouteTable.Routes.RegisterPartialRouter(new CategoryPartialRouter(context.Locate.ContentLoader(), context.Locate.Advanced.GetInstance<ICategoryContentRepository>()));
         }
 
         public void Uninitialize(InitializationEngine context)

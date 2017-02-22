@@ -16,7 +16,7 @@ namespace Geta.EpiCategories
                 PlugInArea.NavigationDefaultGroup
             };
             Categories = new[] { "content" };
-            SortOrder = 120;
+            SortOrder = 115;
             Settings.Add(new Setting("repositoryKey", CategoryContentRepositoryDescriptor.RepositoryKey));
         }
     }
