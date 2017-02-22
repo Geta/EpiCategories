@@ -12,6 +12,9 @@ namespace Geta.EpiCategories.EditorDescriptors
     {
         public CategoryListEditorDescriptor(IEnumerable<IContentRepositoryDescriptor> contentRepositoryDescriptors, IContentLoader contentLoader) : base(contentRepositoryDescriptors, contentLoader)
         {
+            ClientEditingClass = "geta-epicategories/contentediting/CategoryReferenceListEditor";
+            // add repositorykey
+            
             AllowedTypes = new[] {typeof (CategoryData)};
         }
     }
