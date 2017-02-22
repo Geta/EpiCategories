@@ -13,5 +13,6 @@
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DestinationProjectDir)bin" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
         <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(DestinationProjectDir)bin" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
         <Copy SourceFiles="@(ClientResources)" DestinationFiles="@(ClientResources -> '$(DestinationProjectDir)modules\_protected\geta-epicategories\ClientResources\%(RecursiveDir)%(Filename)%(Extension)')" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
+        <Copy SourceFiles="$(ProjectDir)module.config" DestinationFolder="$(DestinationProjectDir)modules\_protected\geta-epicategories" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
     </Target>
 </Project>

@@ -5,6 +5,7 @@ using EPiServer.Core;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell;
+using EPiServer.Web;
 
 namespace Geta.EpiCategories
 {
@@ -32,13 +33,25 @@ namespace Geta.EpiCategories
             typeof (CategoryData)
         };
 
-        public override IEnumerable<ContentReference> Roots => new[]
+        public override IEnumerable<ContentReference> Roots
         {
-            ServiceLocator.Current.GetInstance<ICategoryContentRepository>().GetRootLink()
-        };
+            get
+            {
+                var list = new List<ContentReference>
+                {
+                    SiteDefinition.Current.GlobalAssetsRoot
+                };
+
+                if (SiteDefinition.Current.GlobalAssetsRoot != SiteDefinition.Current.SiteAssetsRoot)
+                    list.Add(SiteDefinition.Current.SiteAssetsRoot);
+
+                return list;
+            }
+        }
 
         public override IEnumerable<Type> MainNavigationTypes => new[]
         {
+            typeof(ContentFolder),
             typeof(CategoryData)
         };
 
