@@ -24,6 +24,11 @@ function (
 ) {
 
     return declare([ContentNavigationTree], {
-        res: res
+        res: res,
+
+        postMixInProperties: function () {
+            console.log("hejejjejej");
+        },
+
     });
 });

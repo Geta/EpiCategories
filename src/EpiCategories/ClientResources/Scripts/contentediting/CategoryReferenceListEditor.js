@@ -1,4 +1,4 @@
-﻿define("geta-epicategories/contentediting/CategorySelector", [
+﻿define("geta-epicategories/contentediting/CategoryReferenceListEditor", [
     // dojo
     "dojo/_base/array",
     "dojo/_base/declare",
@@ -25,8 +25,9 @@
     "epi/dependency",
     "epi/epi",
     "epi/shell/widget/dialog/Dialog",
-   
-    "dojo/text!./templates/CategorySelector.html",
+        "epi-cms/ApplicationSettings",
+
+    "dojo/text!./templates/CategoryReferenceListEditor.html",
     "epi/i18n!epi/cms/nls/episerver.cms.widget.CategorySelector"
 ],
 
@@ -56,6 +57,7 @@ function (
     dependency,
     epi,
     Dialog,
+     ApplicationSettings,
 
     template,
     res
@@ -66,14 +68,14 @@ function (
         localization: res,
         //this widget wants a value that is an array
         multiple: true,
-        
+
         value: null,
 
         store: null,
         _categories: null,
         _categoriesParentsName: {},
 
-        rootCategory: 1, // should be able to filter based on parameter?
+        repositoryKey: "categories", // should be able to filter based on parameter?
 
         focus: function () {
             this.button.focus();
@@ -87,10 +89,12 @@ function (
 
             this.inherited(arguments);
 
-            if (!this.store) {
-                var registry = dependency.resolve("epi.storeregistry");
-                this.store = registry.get("epi.cms.category");
-            }
+
+            //if (!this.store) {
+            //    var registry = dependency.resolve("epi.storeregistry");
+            //    this.store = registry.get("epicategories");
+            //}
+
         },
 
 
@@ -131,7 +135,8 @@ function (
             //    protected
 
             this.categorySelectorDialog = new CategorySelectorTreeDialog({
-                rootCategory: this.rootCategory
+                repositoryKey: this.repositoryKey
+
             });
 
             this.dialog = new Dialog({
