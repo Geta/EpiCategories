@@ -13,16 +13,15 @@ namespace Geta.EpiCategories.SpecializedProperties
         {
             get
             {
-                if (base.List != null)
-                {
-                    return new ContentCategoryList(base.List);
-                }
-
-                return base.List;
+                return base.List != null 
+                    ? new ContentCategoryList(base.List) 
+                    : base.List;
             }
             set
             {
-                base.List = value != null ? new ContentCategoryList(value) : null;
+                base.List = value != null 
+                    ? new ContentCategoryList(value) 
+                    : null;
             }
         }
 
