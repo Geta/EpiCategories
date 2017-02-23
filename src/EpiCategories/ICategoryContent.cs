@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using EPiServer.Core;
+﻿using EPiServer.Core;
 
 namespace Geta.EpiCategories
 {
-    public interface ICategoryContent : IContent
+    public interface ICategoryContent : IContentData
     {
          ContentCategoryList Categories { get; set; } 
     }
