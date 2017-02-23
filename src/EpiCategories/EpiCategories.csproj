@@ -214,7 +214,7 @@
     <Compile Include="EditorDescriptors\HideCategoryEditorDescriptor.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
-    <Compile Include="ICategoryContent.cs" />
+    <Compile Include="ICategorizableContent.cs" />
     <Compile Include="ICategoryContentRepository.cs" />
     <Compile Include="ICategoryRoutableContent.cs" />
     <Compile Include="IContentInCategoryLocator.cs" />

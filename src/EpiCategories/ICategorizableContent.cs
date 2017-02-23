@@ -2,7 +2,7 @@
 
 namespace Geta.EpiCategories
 {
-    public interface ICategoryContent : IContentData
+    public interface ICategorizableContent
     {
          ContentCategoryList Categories { get; set; } 
     }
