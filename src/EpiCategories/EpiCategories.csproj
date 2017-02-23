@@ -186,10 +186,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientResources\Scripts\contentediting\CategoryReferenceListEditor.js" />
-    <Content Include="ClientResources\Scripts\contentediting\CategorySelectorDialog.js" />
-    <Content Include="ClientResources\Scripts\contentediting\templates\CategoryReferenceListEditor.html" />
-    <Content Include="ClientResources\Scripts\contentediting\templates\CategorySelectorDialog.html" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelectionTree.js" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelector.js" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelectorDialog.js" />
+    <Content Include="ClientResources\Scripts\widget\templates\CategorySelectionTreeNode.html" />
+    <Content Include="ClientResources\Scripts\widget\templates\CategorySelector.html" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -217,7 +219,6 @@
     <Compile Include="ICategoryRoutableContent.cs" />
     <Compile Include="IContentInCategoryLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RootCategoryData.cs" />
     <Compile Include="Routing\CategoryPartialRouter.cs" />
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
     <Compile Include="SpecializedProperties\PropertyContentCategoryList.cs" />

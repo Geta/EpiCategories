@@ -18,6 +18,7 @@ namespace Geta.EpiCategories.EditorDescriptors
         {
             _contentRepositoryDescriptors = contentRepositoryDescriptors;
             AllowedTypes = new[] { typeof(CategoryData) };
+            ClientEditingClass = "geta-epicategories/widget/CategorySelector";
         }
 
         public override void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
@@ -30,6 +31,7 @@ namespace Geta.EpiCategories.EditorDescriptors
                 return;
 
             metadata.EditorConfiguration["roots"] = categoryRepositoryDescriptor.Roots;
+            metadata.OverlayConfiguration["customType"] = null;
         }
     }
 }

@@ -2,7 +2,7 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Debug'">
         <PropertyGroup>
-            <DestinationProjectDir>C:\Projects\Private\EPiServer.Playground\EPiServer.Playground.Alloy\</DestinationProjectDir>
+            <DestinationProjectDir>C:\Projects\Sandbox\EpiSample\EpiSample.Web\</DestinationProjectDir>
         </PropertyGroup>
         
         <ItemGroup>
