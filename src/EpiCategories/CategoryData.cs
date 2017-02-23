@@ -7,7 +7,6 @@ using EPiServer.Web.Routing;
 
 namespace Geta.EpiCategories
 {
-    [ContentType(GUID = "ef0422aa-e1f7-476e-b7f7-50d76db7201f")]
     public class CategoryData : StandardContentBase, IRoutable
     {
         [UIHint(UIHint.PreviewableText)]
