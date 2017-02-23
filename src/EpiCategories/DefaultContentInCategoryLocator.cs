@@ -37,7 +37,7 @@ namespace Geta.EpiCategories
             return ContentLoader
                 .GetItems(descendents, loaderOptions)
                 .OfType<T>()
-                .Where(x => x.Categories.ContainsAny(categories));
+                .Where(x => x.Categories.MemberOfAny(categories));
         }
 
         public virtual IEnumerable<T> GetChildren<T>(ContentReference contentLink, ContentCategoryList categories) where T : ICategorizableContent, IContent

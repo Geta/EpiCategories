@@ -9,7 +9,7 @@ using EPiServer.Web.Routing.Segments;
 
 namespace Geta.EpiCategories.Routing
 {
-    public class CategoryPartialRouter : IPartialRouter<ICategoryRoutableContent, PageData>
+    public class CategoryPartialRouter : IPartialRouter<ICategoryRoutableContent, ICategoryRoutableContent>
     {
         protected readonly IContentLoader ContentLoader;
         protected readonly ICategoryContentRepository CategoryRepository;
@@ -47,11 +47,11 @@ namespace Geta.EpiCategories.Routing
             return null;
         }
 
-        public PartialRouteData GetPartialVirtualPath(PageData content, string language, RouteValueDictionary routeValues, RequestContext requestContext)
+        public PartialRouteData GetPartialVirtualPath(ICategoryRoutableContent content, string language, RouteValueDictionary routeValues, RequestContext requestContext)
         {
             object currentCategory;
 
-            if (content is ICategoryRoutableContent == false || routeValues.TryGetValue(CategoryRoutingConstants.CurrentCategory, out currentCategory) == false)
+            if (routeValues.TryGetValue(CategoryRoutingConstants.CurrentCategory, out currentCategory) == false)
                 return null;
 
             ContentReference categoryLink = (ContentReference) currentCategory;

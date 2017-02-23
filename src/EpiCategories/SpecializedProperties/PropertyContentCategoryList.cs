@@ -15,7 +15,7 @@ namespace Geta.EpiCategories.SpecializedProperties
             {
                 return base.List != null 
                     ? new ContentCategoryList(base.List) 
-                    : base.List;
+                    : new ContentCategoryList();
             }
             set
             {

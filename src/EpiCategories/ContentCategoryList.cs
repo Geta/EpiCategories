@@ -187,11 +187,21 @@ namespace Geta.EpiCategories
 
         public virtual bool MemberOfAny(IEnumerable<ContentReference> categories)
         {
+            if (categories == null || categories.Any() == false)
+            {
+                return true;
+            }
+
             return categories.Any(Contains);
         }
 
         public virtual bool MemberOfAll(IEnumerable<ContentReference> categories)
         {
+            if (categories == null || categories.Any() == false)
+            {
+                return true;
+            }
+
             return categories.All(Contains);
         }
 
