@@ -52,6 +52,7 @@ CategoryData looks like this:
         }
     }
 	
+### Edit categories
 Instead of going to admin mode to manage categories, you now do it in edit mode, under the "Categories" tab in the main navigation component to the left. You work with them like normal pages, and it's possible to translate them. You can create categories that are shared between multiple sites or you can create site specific categories.
 
 ![ScreenShot](/docs/extended-category-tree.jpg)
