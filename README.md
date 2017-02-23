@@ -57,7 +57,7 @@ Instead of going to admin mode to manage categories, you now do it in edit mode,
 
 ![ScreenShot](/docs/extended-category-tree.jpg)
 
-### ICategorizableContent
+### ICategorizableContent interface
 Implement ICategorizableContent on your content type class to categorize your content. This interface contains the Categories property of type ContentCategoryList, which inherits from List&lt;ContentReference>. ContentCategoryList has MemberOf, MemberOfAny and MemberOfAll methods, exactly like CategoryList has.
 
 	public interface ICategorizableContent
