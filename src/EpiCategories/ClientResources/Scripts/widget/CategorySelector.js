@@ -1,59 +1,60 @@
 ﻿define("geta-epicategories/widget/CategorySelector", [
-   "dojo/_base/array",
-   "dojo/_base/declare",
-   "dojo/_base/lang",
-   "dojo/promise/all",
-   "dojo/dom-attr",
-   "dojo/dom-class",
-   "dojo/dom-construct",
-   "dojo/dom-style",
-   "dojo/query",
-   "dojo/Deferred",
+    "dojo/_base/array",
+    "dojo/_base/declare",
+    "dojo/_base/lang",
+    "dojo/promise/all",
+    "dojo/dom-attr",
+    "dojo/dom-class",
+    "dojo/dom-construct",
+    "dojo/dom-style",
+    "dojo/query",
+    "dojo/Deferred",
 
-   "dijit/_TemplatedMixin",
-   "dijit/_Widget",
-   "dijit/_WidgetsInTemplateMixin",
-   "dijit/form/Button",
-   "dijit/Tooltip",
+    "dijit/_TemplatedMixin",
+    "dijit/_Widget",
+    "dijit/_WidgetsInTemplateMixin",
+    "dijit/form/Button",
+    "dijit/Tooltip",
 
-   "epi-cms/widget/_HasChildDialogMixin",
-   "geta-epicategories/widget/CategorySelectorDialog",
-   "epi/shell/widget/_ValueRequiredMixin",
-   "epi/dependency",
-   "epi/epi",
-   "epi/shell/widget/dialog/Dialog",
+    "epi-cms/widget/_HasChildDialogMixin",
+    "geta-epicategories/widget/CategorySelectorDialog",
+    "epi/shell/widget/_ValueRequiredMixin",
+    "epi/dependency",
+    "epi/epi",
+    "epi/shell/widget/dialog/Dialog",
 
-   "dojo/text!./templates/CategorySelector.html",
-   "epi/i18n!epi/cms/nls/episerver.cms.widget.CategorySelector"
+    "dojo/text!./templates/CategorySelector.html",
+    "epi/i18n!epi/cms/nls/episerver.cms.widget.CategorySelector"
 ],
 
 function (
-   array,
-   declare,
-   lang,
-   promiseAll,
-   domAttr,
-   domClass,
-   domConstruct,
-   domStyle,
-   query,
-   Deferred,
+    array,
+    declare,
+    lang,
+    promiseAll,
+    domAttr,
+    domClass,
+    domConstruct,
+    domStyle,
+    query,
+    Deferred,
 
-   _TemplatedMixin,
-   _Widget,
-   _WidgetsInTemplateMixin,
-   Button,
-   Tooltip,
+    _TemplatedMixin,
+    _Widget,
+    _WidgetsInTemplateMixin,
+    Button,
+    Tooltip,
 
-   _HasChildDialogMixin,
-   CategorySelectorDialog,
-   _ValueRequiredMixin,
-   dependency,
-   epi,
-   Dialog,
+    _HasChildDialogMixin,
+    CategorySelectorDialog,
+    _ValueRequiredMixin,
+    dependency,
+    epi,
+    Dialog,
 
-   template,
-res) {
+    template,
+    res
+) {
 
     return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _HasChildDialogMixin, _ValueRequiredMixin], {
         // tags:
@@ -70,7 +71,7 @@ res) {
         onChange: function (value) {
         },
 
-        postCreate: function() {
+        postCreate: function () {
             if (!this.store) {
                 var registry = dependency.resolve('epi.storeregistry');
                 this.store = registry.get('epi.cms.content.light');
