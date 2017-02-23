@@ -82,6 +82,8 @@ There is an implementation of ICategoryContentRepository that you can use to loa
 
 			bool TryGet<T>(ContentReference categoryLink, out T category) where T : CategoryData;
 	}
+
+Inject it in your controller as you are used to:
 	
 	public class MyController : Controller
 	{
