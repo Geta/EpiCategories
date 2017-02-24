@@ -90,6 +90,11 @@ If you prefer to use the native content reference list editor for your categorie
 
 ![ScreenShot](/docs/content-reference-list.jpg)
 
+If you want a single category on your content type just add a ContentReference property:
+
+	[UIHint(CategoryUIHint.Category)]
+	public virtual ContentReference MainCategory { get; set; }
+
 ### ICategoryContentRepository
 There is an implementation of ICategoryContentRepository that you can use to load categories:
 
