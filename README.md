@@ -1,6 +1,14 @@
 # EpiCategories
 An alternative to Episerver's default category functionality, where categories are instead stored as localizable IContent.
 
+## Why should you use it?
+It has the following advantages over default functionality:
+
+1. Localization (no more language XML files)
+2. Access rights support (some editors should perhaps have limited category access)
+3. Shared and site specific categories in multisite solutions
+4. Partial routing of category URL segments
+
 ## How to install
 Install NuGet package from Episerver NuGet Feed:
 
@@ -75,6 +83,13 @@ Above property will look familiar if you have used standard Episerver categories
 ![ScreenShot](/docs/category-selector.jpg)
 ![ScreenShot](/docs/category-selector-dialog.jpg)
 
+If you prefer to use the native content reference list editor for your categories you can add a UI hint:
+
+	[UIHint(CategoryUIHint.ContentReferenceList)]
+	public virtual ContentCategoryList Categories { get; set; }
+
+![ScreenShot](/docs/content-reference-list.jpg)
+
 ### ICategoryContentRepository
 There is an implementation of ICategoryContentRepository that you can use to load categories:
 
@@ -148,6 +163,7 @@ Implement this on your content type and it will be possible to route category UR
 	{
 	}
 	
-There is a UrlHelper extension included to get content URL with category segment included:
+There is a UrlHelper and UrlResolver extension method included to get content URL with category segment added:
 
-	@Url.ContentUrl(/* ContentReference */ myContentReference, /* ContentReference */ myCategoryContentReference)
+	@Url.CategoryRoutedContentUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink)
+	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink)

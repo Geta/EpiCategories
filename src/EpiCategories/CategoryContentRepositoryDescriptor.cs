@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using EPiServer.Cms.Shell.UI.UIDescriptors;
+using EPiServer.Cms.Shell.UI.CompositeViews.Internal;
 using EPiServer.Core;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
@@ -10,9 +10,9 @@ using EPiServer.Web;
 namespace Geta.EpiCategories
 {
     [ServiceConfiguration(typeof(IContentRepositoryDescriptor))]
-    public class CategoryContentRepositoryDescriptor : PageRepositoryDescriptor
+    public class CategoryContentRepositoryDescriptor : ContentRepositoryDescriptorBase
     {
-        public new static string RepositoryKey = "categories";
+        public static string RepositoryKey = "categories";
 
         public override string Key => RepositoryKey;
 
@@ -52,6 +52,11 @@ namespace Geta.EpiCategories
         public override IEnumerable<Type> MainNavigationTypes => new[]
         {
             typeof(CategoryData)
+        };
+
+        public override IEnumerable<string> MainViews => new []
+        {
+            HomeView.ViewName
         };
 
         public override string SearchArea => "cms/categories";
