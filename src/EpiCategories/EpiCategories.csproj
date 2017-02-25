@@ -224,6 +224,7 @@
     <Compile Include="Routing\CategoryPartialRouter.cs" />
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
     <Compile Include="SpecializedProperties\PropertyContentCategoryList.cs" />
+    <Compile Include="Transfer\PropertyContentCategoryListTransform.cs" />
     <Compile Include="UIDescriptors\CategoryDataUIDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>

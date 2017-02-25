@@ -41,6 +41,6 @@ namespace Geta.EpiCategories.SpecializedProperties
             return ContentReference.EmptyReference;
         }
 
-        public override Type PropertyValueType { get { return typeof (ContentCategoryList); } }
+        public override Type PropertyValueType => typeof (ContentCategoryList);
     }
 }
