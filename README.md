@@ -89,7 +89,7 @@ If you want a single category on your content type just add a ContentReference p
 	public virtual ContentReference MainCategory { get; set; }
 
 ### ICategoryContentLoader interface
-There is an implementation of ICategoryContentLoader that you can use to load categories:
+There is an implementation of ICategoryContentLoader (note that in 1.0.0 it is mistakenly named ICategoryContentRepository) that you can use to load categories:
 
 	public interface ICategoryContentLoader
 	{
