@@ -8,7 +8,7 @@
         <owners>Geta</owners>
         <projectUrl>https://github.com/Geta/EpiCategories</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>An alternative to Episerver's default and outdated category functionality, where categories are instead stored as localizable IContent. See https://github.com/Geta/EpiCategories for more details.</description>
+        <description>An alternative to Episerver's default category functionality, where categories are instead stored as localizable IContent. See https://github.com/Geta/EpiCategories for more details.</description>
         <releaseNotes></releaseNotes>
         <copyright></copyright>
         <tags>Episerver, Geta</tags>
