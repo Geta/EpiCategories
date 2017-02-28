@@ -20,6 +20,7 @@
     </metadata>
     <files>
         <file src="bin\Geta.EpiCategories.dll" target="lib" />
+        <file src="lang\*.*" target="content\lang" />
         <file src="modules\**\*.*" target="content\modules" />
     </files>
 </package>
