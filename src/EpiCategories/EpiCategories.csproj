@@ -208,7 +208,7 @@
     <Compile Include="CategoryData.cs" />
     <Compile Include="CategoryUIHint.cs" />
     <Compile Include="ContentCategoryList.cs" />
-    <Compile Include="DefaultCategoryContentRepository.cs" />
+    <Compile Include="DefaultCategoryContentLoader.cs" />
     <Compile Include="DefaultContentInCategoryLocator.cs" />
     <Compile Include="EditorDescriptors\ContentCategoryListNativeEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\CategoryEditorDescriptor.cs" />
@@ -218,7 +218,7 @@
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Extensions\UrlResolverExtensions.cs" />
     <Compile Include="ICategorizableContent.cs" />
-    <Compile Include="ICategoryContentRepository.cs" />
+    <Compile Include="ICategoryContentLoader.cs" />
     <Compile Include="ICategoryRoutableContent.cs" />
     <Compile Include="IContentInCategoryLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

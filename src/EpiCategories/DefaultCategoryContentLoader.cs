@@ -9,12 +9,12 @@ using EPiServer.Web;
 
 namespace Geta.EpiCategories
 {
-    public class DefaultCategoryContentRepository : ICategoryContentRepository
+    public class DefaultCategoryContentLoader : ICategoryContentLoader
     {
         protected readonly IContentRepository ContentRepository;
         protected readonly LanguageResolver LanguageResolver;
 
-        public DefaultCategoryContentRepository(IContentRepository contentRepository, LanguageResolver languageResolver)
+        public DefaultCategoryContentLoader(IContentRepository contentRepository, LanguageResolver languageResolver)
         {
             ContentRepository = contentRepository;
             LanguageResolver = languageResolver;

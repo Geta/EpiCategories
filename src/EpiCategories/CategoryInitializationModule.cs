@@ -25,7 +25,7 @@ namespace Geta.EpiCategories
             RegisterImportEvents(context.Locate.Advanced);
             RegisterExportEvents(context.Locate.Advanced);
 
-            RouteTable.Routes.RegisterPartialRouter(new CategoryPartialRouter(context.Locate.ContentLoader(), context.Locate.Advanced.GetInstance<ICategoryContentRepository>()));
+            RouteTable.Routes.RegisterPartialRouter(new CategoryPartialRouter(context.Locate.ContentLoader(), context.Locate.Advanced.GetInstance<ICategoryContentLoader>()));
         }
 
         public void Uninitialize(InitializationEngine context)
@@ -78,7 +78,7 @@ namespace Geta.EpiCategories
 
         private static void ConfigureContainer(IServiceConfigurationProvider services)
         {
-            services.AddSingleton<ICategoryContentRepository, DefaultCategoryContentRepository>();
+            services.AddSingleton<ICategoryContentLoader, DefaultCategoryContentLoader>();
             services.AddSingleton<IContentInCategoryLocator, DefaultContentInCategoryLocator>();
         }
 

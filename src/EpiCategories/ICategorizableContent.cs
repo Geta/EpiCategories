@@ -1,6 +1,4 @@
-﻿using EPiServer.Core;
-
-namespace Geta.EpiCategories
+﻿namespace Geta.EpiCategories
 {
     public interface ICategorizableContent
     {

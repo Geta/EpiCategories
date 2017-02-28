@@ -12,12 +12,12 @@ namespace Geta.EpiCategories.Routing
     public class CategoryPartialRouter : IPartialRouter<ICategoryRoutableContent, ICategoryRoutableContent>
     {
         protected readonly IContentLoader ContentLoader;
-        protected readonly ICategoryContentRepository CategoryRepository;
+        protected readonly ICategoryContentLoader CategoryLoader;
 
-        public CategoryPartialRouter(IContentLoader contentLoader, ICategoryContentRepository categoryRepository)
+        public CategoryPartialRouter(IContentLoader contentLoader, ICategoryContentLoader categoryLoader)
         {
             ContentLoader = contentLoader;
-            CategoryRepository = categoryRepository;
+            CategoryLoader = categoryLoader;
         }
 
         public object RoutePartial(ICategoryRoutableContent content, SegmentContext segmentContext)
@@ -34,7 +34,7 @@ namespace Geta.EpiCategories.Routing
             {
                 var localizableContent = content as ILocale;
                 CultureInfo preferredCulture = localizableContent?.Language ?? ContentLanguage.PreferredCulture;
-                var category = CategoryRepository.GetFirstBySegment<CategoryData>(nextSegment.Next, preferredCulture);
+                var category = CategoryLoader.GetFirstBySegment<CategoryData>(nextSegment.Next, preferredCulture);
 
                 if (category == null)
                     return null;
@@ -57,7 +57,7 @@ namespace Geta.EpiCategories.Routing
             ContentReference categoryLink = (ContentReference) currentCategory;
             CategoryData category;
 
-            if (CategoryRepository.TryGet(categoryLink, out category) == false)
+            if (CategoryLoader.TryGet(categoryLink, out category) == false)
                 return null;
 
             routeValues.Remove(CategoryRoutingConstants.CurrentCategory);

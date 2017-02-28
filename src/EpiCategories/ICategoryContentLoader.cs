@@ -4,7 +4,7 @@ using EPiServer.Core;
 
 namespace Geta.EpiCategories
 {
-    public interface ICategoryContentRepository
+    public interface ICategoryContentLoader
     {
         T Get<T>(ContentReference categoryLink) where T : CategoryData;
 
