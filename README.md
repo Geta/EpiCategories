@@ -128,11 +128,11 @@ Inject it in your controller as you are used to:
 	
 	public class MyController : Controller
 	{
-		private readonly ICategoryContentRepository _categoryRepository;
+		private readonly ICategoryContentLoader _categoryLoader;
 		
-		public MyController(ICategoryContentRepository categoryRepository)
+		public MyController(ICategoryContentLoader categoryLoader)
 		{
-			_categoryRepository = categoryRepository;	
+			_categoryLoader = categoryLoader;	
 		}
 	}
 	
