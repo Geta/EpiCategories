@@ -5,6 +5,7 @@
     "dojo/_base/lang",
     "dojo/_base/connect",
     "dojo/when",
+    "dojo/promise/all",
     "dojo/Deferred",
 
     "epi-cms/widget/ContentTree",
@@ -26,6 +27,7 @@ function (
     lang,
     connect,
     when,
+    promiseAll,
     Deferred,
 
     ContentTree,
@@ -45,8 +47,11 @@ function (
         nodeConstructor: CategorySelectionTreeNode,
         selectedContentLinks: null,
 
+        _loadedAncestors: null,
+
         constructor: function () {
             this.selectedContentLinks = [];
+            this._loadedAncestors = [];
         },
 
         postCreate: function () {
@@ -96,10 +101,37 @@ function (
             }
         },
 
-        _loadSelectedNodes: function () {
-            this.expandChildrenDeferred.then(lang.hitch(this, function () {
-                this.set("toggleSelectNodes", this.rootNode, this.selectedContentLinks);
+        _expandExtraNodes: function() {
+            this._expandSelectedNodes();
+            return this.inherited(arguments);
+        },
+
+        _expandSelectedNodes: function () {
+            var dfdList = [];
+
+            array.forEach(this.selectedContentLinks, function (contentLink) {
+                var dfd = new Deferred();
+                dfdList.push(dfd);
+
+                this.model.getAncestors(contentLink, lang.hitch(this, function (ancestors) {
+                    ancestors.splice(0, 2);
+                    this._onAncestorsLoaded(ancestors, dfd);
+                }));
+            }, this);
+
+            promiseAll(dfdList).then(lang.hitch(this, function () {
+                this._expandAncestors(lang.clone(this._loadedAncestors));
             }));
+        },
+
+        _onAncestorsLoaded: function(ancestors, dfd) {
+            array.forEach(ancestors, function(ancestor) {
+                if (this._loadedAncestors.indexOf(ancestor.contentLink) === -1) {
+                    this._loadedAncestors.push(ancestor.contentLink);
+                }
+            }, this);
+
+            dfd.resolve();
         },
 
         _setToggleSelectNodesAttr: function (parentNode, toggleNodeIds) {
@@ -119,6 +151,22 @@ function (
                     }
                 }
             }, this);
+        },
+
+        _expandAncestors: function (ancestors) {
+            if (ancestors.length === 0) {
+                return;
+            }
+
+            var ancestor = ancestors[0];
+            var node = this.getNodeById(ancestor);
+            ancestors.splice(0, 1);
+
+            if (node && !node.isExpanded) {
+                this._expandNode(node).then(lang.hitch(this, function () {
+                    this._expandAncestors(ancestors);
+                }));
+            }
         },
 
         _createTreeNode: function () {
