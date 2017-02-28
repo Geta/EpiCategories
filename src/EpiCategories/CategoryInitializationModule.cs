@@ -22,40 +22,58 @@ namespace Geta.EpiCategories
             var contentEvents = context.Locate.ContentEvents();
             contentEvents.CreatingContent += OnCreatingContent;
 
-            RegisterImportEvents(context.Locate.Advanced.GetInstance<IDataImportEvents>(), context.Locate.Advanced);
-            RegisterExportEvents(context.Locate.Advanced.GetInstance<IDataExportEvents>(), context.Locate.Advanced);
+            RegisterImportEvents(context.Locate.Advanced);
+            RegisterExportEvents(context.Locate.Advanced);
 
             RouteTable.Routes.RegisterPartialRouter(new CategoryPartialRouter(context.Locate.ContentLoader(), context.Locate.Advanced.GetInstance<ICategoryContentRepository>()));
-        }
-
-        private void RegisterImportEvents(IDataImportEvents importEvents, IServiceLocator factory)
-        {
-            var propertyContentCategoryListTransform = factory.GetInstance<PropertyContentCategoryListTransform>();
-            importEvents.PropertyImporting += propertyContentCategoryListTransform.ImportEventHandler;
-            importEvents.Starting += propertyContentCategoryListTransform.StartingEventHandler;
-            importEvents.Completed += propertyContentCategoryListTransform.CompletedEventHandler;
-        }
-
-        private void RegisterExportEvents(IDataExportEvents exportEvents, IServiceLocator factory)
-        {
-            exportEvents.PropertyExporting += factory.GetInstance<PropertyContentCategoryListTransform>().ExportEventHandler;
         }
 
         public void Uninitialize(InitializationEngine context)
         {
             var factory = ServiceLocator.Current;
-            var importEvents = factory.GetInstance<IDataImportEvents>();
-            var propertyContentCategoryListTransform = factory.GetInstance<PropertyContentCategoryListTransform>();
-
-            factory.GetInstance<IContentEvents>().CreatingContent -= OnCreatingContent;
-            importEvents.PropertyImporting -= propertyContentCategoryListTransform.ImportEventHandler;
-            importEvents.Completed -= propertyContentCategoryListTransform.CompletedEventHandler;
-            factory.GetInstance<IDataExportEvents>().PropertyExporting -= propertyContentCategoryListTransform.ExportEventHandler;
+            UnregisterImportEvents(factory);
+            UnregisterExportEvents(factory);
         }
 
         public void ConfigureContainer(ServiceConfigurationContext context)
         {
             ConfigureContainer(context.Services);
+        }
+
+        private void RegisterImportEvents(IServiceLocator factory)
+        {
+            var importEvents = factory.GetInstance<IDataImportEvents>();
+            var propertyContentCategoryListTransform = factory.GetInstance<PropertyContentCategoryListTransform>();
+
+            importEvents.PropertyImporting += propertyContentCategoryListTransform.ImportEventHandler;
+            importEvents.Starting += propertyContentCategoryListTransform.StartingEventHandler;
+            importEvents.Completed += propertyContentCategoryListTransform.CompletedEventHandler;
+        }
+
+        private void RegisterExportEvents(IServiceLocator factory)
+        {
+            var exportEvents = factory.GetInstance<IDataExportEvents>();
+            var propertyContentCategoryListTransform = factory.GetInstance<PropertyContentCategoryListTransform>();
+
+            exportEvents.PropertyExporting += propertyContentCategoryListTransform.ExportEventHandler;
+        }
+
+        private void UnregisterImportEvents(IServiceLocator factory)
+        {
+            var importEvents = factory.GetInstance<IDataImportEvents>();
+            var propertyContentCategoryListTransform = factory.GetInstance<PropertyContentCategoryListTransform>();
+
+            importEvents.PropertyImporting -= propertyContentCategoryListTransform.ImportEventHandler;
+            importEvents.Starting -= propertyContentCategoryListTransform.StartingEventHandler;
+            importEvents.Completed -= propertyContentCategoryListTransform.CompletedEventHandler;
+        }
+
+        private void UnregisterExportEvents(IServiceLocator factory)
+        {
+            var exportEvents = factory.GetInstance<IDataExportEvents>();
+            var propertyContentCategoryListTransform = factory.GetInstance<PropertyContentCategoryListTransform>();
+
+            exportEvents.PropertyExporting -= propertyContentCategoryListTransform.ExportEventHandler;
         }
 
         private static void ConfigureContainer(IServiceConfigurationProvider services)
@@ -70,7 +88,7 @@ namespace Geta.EpiCategories
 
             if (categoryData != null)
             {
-                categoryData.URLSegment = ServiceLocator.Current.GetInstance<IUrlSegmentCreator>().Create(categoryData);
+                categoryData.RouteSegment = ServiceLocator.Current.GetInstance<IUrlSegmentCreator>().Create(categoryData);
             }
         }
     }

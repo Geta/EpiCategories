@@ -65,7 +65,7 @@ namespace Geta.EpiCategories.Routing
             return new PartialRouteData
             {
                 BasePathRoot = content.ContentLink,
-                PartialVirtualPath = $"{category.URLSegment}/"
+                PartialVirtualPath = $"{category.RouteSegment}/"
             };
         }
     }

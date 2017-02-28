@@ -88,7 +88,7 @@ namespace Geta.EpiCategories
                 .GetItems(descendents, loaderOptions)
                 .OfType<T>();
 
-            return categories.FirstOrDefault(x => x.URLSegment.Equals(urlSegment, StringComparison.InvariantCultureIgnoreCase));
+            return categories.FirstOrDefault(x => x.RouteSegment.Equals(urlSegment, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public virtual IEnumerable<T> GetGlobalCategories<T>() where T : CategoryData

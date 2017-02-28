@@ -186,16 +186,16 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientResources\Scripts\widget\CategorySelectionTree.js" />
-    <Content Include="ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
-    <Content Include="ClientResources\Scripts\widget\CategorySelector.js" />
-    <Content Include="ClientResources\Scripts\widget\CategorySelectorDialog.js" />
-    <Content Include="ClientResources\Scripts\widget\templates\CategorySelectionTreeNode.html" />
-    <Content Include="ClientResources\Scripts\widget\templates\CategorySelector.html" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTree.js" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelector.js" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectorDialog.js" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\templates\CategorySelectionTreeNode.html" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\templates\CategorySelector.html" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClientResources\Scripts\component\CategoryNavigationTree.js" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\component\CategoryNavigationTree.js" />
     <Content Include="Web.config" />
     <Content Include="Geta.EpiCategories.nuspec" />
   </ItemGroup>
@@ -225,13 +225,14 @@
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
     <Compile Include="SpecializedProperties\PropertyContentCategoryList.cs" />
     <Compile Include="Transfer\PropertyContentCategoryListTransform.cs" />
+    <Compile Include="Transfer\UnresolvedContentReference.cs" />
     <Compile Include="UIDescriptors\CategoryDataUIDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AfterBuild.proj">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="module.config" />
+    <Content Include="modules\_protected\geta-epicategories\module.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

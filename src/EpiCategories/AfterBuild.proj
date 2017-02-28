@@ -2,17 +2,18 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Debug'">
         <PropertyGroup>
+            <ModuleDir>$(ProjectDir)modules\_protected\geta-epicategories\</ModuleDir>
             <DestinationProjectDir>C:\Projects\Sandbox\EpiSample\EpiSample.Web\</DestinationProjectDir>
+            <DestinationModuleDir>$(DestinationProjectDir)modules\_protected\geta-epicategories\</DestinationModuleDir>
         </PropertyGroup>
         
         <ItemGroup>
-            <ClientResources Include="$(ProjectDir)ClientResources\**\*" />
+            <ClientResources Include="$(ModuleDir)**\*" />
         </ItemGroup>
 
         <!-- Copy -->
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DestinationProjectDir)bin" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
         <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(DestinationProjectDir)bin" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
-        <Copy SourceFiles="@(ClientResources)" DestinationFiles="@(ClientResources -> '$(DestinationProjectDir)modules\_protected\geta-epicategories\ClientResources\%(RecursiveDir)%(Filename)%(Extension)')" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
-        <Copy SourceFiles="$(ProjectDir)module.config" DestinationFolder="$(DestinationProjectDir)modules\_protected\geta-epicategories" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
+        <Copy SourceFiles="@(ClientResources)" DestinationFiles="@(ClientResources -> '$(DestinationModuleDir)%(RecursiveDir)%(Filename)%(Extension)')" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
     </Target>
 </Project>
