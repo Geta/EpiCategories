@@ -88,8 +88,8 @@ If you want a single category on your content type just add a ContentReference p
 	[UIHint(CategoryUIHint.Category)]
 	public virtual ContentReference MainCategory { get; set; }
 
-### ICategoryContentRepository
-There is an implementation of ICategoryContentRepository that you can use to load categories:
+### ICategoryContentLoader interface
+There is an implementation of ICategoryContentLoader that you can use to load categories:
 
 	public interface ICategoryContentRepository
 	{
