@@ -18,4 +18,8 @@
             <dependency id="EPiServer.CMS.UI.Core" version="10.0.2" />
         </dependencies>
     </metadata>
+    <files>
+        <file src="bin\$configuration$\Geta.EpiCategories.dll" target="lib" />
+        <file src="modules\**\*.*" target="content\modules" />
+    </files>
 </package>

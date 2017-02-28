@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+    <language name="English" id="en">
+        <contentrepositories>
+            <categories>
+                <customselecttitle>Category</customselecttitle>
+                <name>Categories</name>
+            </categories>
+        </contentrepositories>
+        <contenttypes>
+            <categorydata>
+                <create>New Category</create>
+                <name>Category</name>
+                <newitemdefaultname>New Category</newitemdefaultname>
+                <properties>
+                    <isselectable>
+                        <caption>Is selectable</caption>
+                    </isselectable>
+                </properties>
+            </categorydata>
+        </contenttypes>
+        <episerver>
+            <cms>
+                <components>
+                    <categorytree>
+                        <cannotdelete>You do not have access rights to move the selected content to trash.</cannotdelete>
+                        <cantmovesystempage>System content cannot be moved or copied.</cantmovesystempage>
+                        <changepeerorderconfirmation></changepeerorderconfirmation>
+                        <copy>
+                            <operationexception>Failed to copy the content "{0}" beneath the content "{1}".</operationexception>
+                            <operationfailed></operationfailed>
+                        </copy>
+                        <move>
+                            <cannotmovecontentproviderparentpage>This category cannot be moved since the page or one of its descendants is a parent to a content provider.</cannotmovecontentproviderparentpage>
+                            <cantmovepagetoitschildren>The content cannot be moved to its children.</cantmovepagetoitschildren>
+                            <changesortindexfailed></changesortindexfailed>
+                            <operationexception>Failed to move the content "{0}" beneath the content "{1}".</operationexception>
+                            <operationfailed></operationfailed>
+                            <pageproviderdeletecreate>Failed to move the content. The source content provider does not support removing content, or the destination content provider does not support creating content.</pageproviderdeletecreate>
+                            <providerdoesnotsupportmove>Failed to move the content. The content provider handling this content does not support moving content.</providerdoesnotsupportmove>
+                            <requirespageprovidermove>Failed to move the content. The source and destination of the move operation belong to different content providers, which requires a special permission set in Permissions for Functions in Admin Mode.</requirespageprovidermove>
+                            <title>Move Category</title>
+                        </move>
+                        <moveconfirmation>Would you like to move this content?</moveconfirmation>
+                        <pagenotfound>Content is not found, it might have been moved or deleted.</pagenotfound>
+                        <pagetypenotallowed>Content type(s) is(are) not allowed at the destination</pagetypenotallowed>
+                        <title>Categories</title>
+                        <toolbar>
+                            <buttons>
+                                <actions>Actions</actions>
+                                <movetotrash>Move to Trash</movetotrash>
+                                <newcategory>New Category</newcategory>
+                            </buttons>
+                        </toolbar>
+                        <tooltip>
+                            <beingedited>Currently edited by:</beingedited>
+                            <fetchesdatafrom>Fetches data from</fetchesdatafrom>
+                            <linkto>Link to</linkto>
+                            <nolinkonlytext>No link, only text</nolinkonlytext>
+                            <notpublished>This category has not been published</notpublished>
+                            <notvisibleinmenu>This category is not displayed in the site navigation</notvisibleinmenu>
+                            <pagelocked>You have not been assigned the user rights to make changes to this page</pagelocked>
+                            <readytopublish>This category is waiting to be published</readytopublish>
+                            <rejected>This category has been rejected</rejected>
+                            <shortcut>Shortcut to</shortcut>
+                        </tooltip>
+                    </categorytree>
+                    <createcategory>
+                        <command>
+                            <label>New Category</label>
+                        </command>
+                        <contentnamehint>Enter the category name here</contentnamehint>
+                        <contenttypetitle>Create a new category from {0}</contenttypetitle>
+                        <defaultname>New Category</defaultname>
+                        <emptynameerror>Please enter a category name.</emptynameerror>
+                        <name>Category name</name>
+                        <title>New Category</title>
+                        <translate>
+                            <namehelptext>The URL name is automatically generated based on the name you enter here</namehelptext>
+                            <namelabel>{0} version</namelabel>
+                        </translate>
+                        <warningdefaultname>Consider renaming the category to something more descriptive than default.</warningdefaultname>
+                    </createcategory>
+                </components>
+            </cms>
+        </episerver>
+    </language>
+</languages>

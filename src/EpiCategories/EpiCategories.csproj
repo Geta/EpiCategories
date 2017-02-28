@@ -186,6 +186,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lang\geta.epicategories.xml" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTree.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelector.js" />
@@ -267,15 +268,4 @@
     <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <Import Project=".\AfterBuild.proj" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Debug'">
-    <ItemGroup>
-      <ClientResources Include="$(ProjectDir)\ClientResources\**\*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(ClientResources)" DestinationFiles="@(ClientResources -> 'c:\Projects\Sandbox\EpiSample\EpiSample.Web\modules\_protected\geta-epicategories\ClientResources\%(RecursiveDir)%(Filename)%(Extension)')" ContinueOnError="false" />
-  </Target>
-  -->
 </Project>
