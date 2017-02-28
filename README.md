@@ -91,7 +91,7 @@ If you want a single category on your content type just add a ContentReference p
 ### ICategoryContentLoader interface
 There is an implementation of ICategoryContentLoader that you can use to load categories:
 
-	public interface ICategoryContentRepository
+	public interface ICategoryContentLoader
 	{
 			T Get<T>(ContentReference categoryLink) where T : CategoryData;
 
