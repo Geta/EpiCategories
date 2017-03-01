@@ -14,6 +14,6 @@
         <!-- Copy -->
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DestinationProjectDir)bin" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
         <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(DestinationProjectDir)bin" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
-        <!-- <Copy SourceFiles="@(ClientResources)" DestinationFiles="@(ClientResources -> '$(DestinationModuleDir)%(RecursiveDir)%(Filename)%(Extension)')" OverwriteReadOnlyFiles="true" ContinueOnError="false" /> -->
+        <Copy SourceFiles="@(ClientResources)" DestinationFiles="@(ClientResources -> '$(DestinationModuleDir)%(RecursiveDir)%(Filename)%(Extension)')" OverwriteReadOnlyFiles="true" ContinueOnError="false" />
     </Target>
 </Project>

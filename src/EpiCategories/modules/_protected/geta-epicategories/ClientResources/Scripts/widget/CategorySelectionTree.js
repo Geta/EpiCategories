@@ -102,11 +102,11 @@ function (
         },
 
         _expandExtraNodes: function() {
-            this._expandSelectedNodes();
+            this.expandSelectedNodes();
             return this.inherited(arguments);
         },
 
-        _expandSelectedNodes: function () {
+        expandSelectedNodes: function () {
             var dfdList = [];
 
             array.forEach(this.selectedContentLinks, function (contentLink) {
@@ -163,9 +163,11 @@ function (
             ancestors.splice(0, 1);
 
             if (node && !node.isExpanded) {
-                this._expandNode(node).then(lang.hitch(this, function () {
+                this._expandNode(node).then(lang.hitch(this, function() {
                     this._expandAncestors(ancestors);
                 }));
+            } else {
+                this._expandAncestors(ancestors);
             }
         },
 
@@ -190,7 +192,7 @@ function (
 
         _setSelectedContentLinksAttr: function (value) {
             this._set('selectedContentLinks', value);
-            this._setToggleSelectNodesAttr(this.rootNode, this.selectedContentLinks);
+            this.set('toggleSelectNodes', this.rootNode, this.selectedContentLinks);
         },
         
         _isItemSelectable: function (item) {
