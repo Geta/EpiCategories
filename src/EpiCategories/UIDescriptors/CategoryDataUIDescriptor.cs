@@ -7,13 +7,6 @@ namespace Geta.EpiCategories.UIDescriptors
     {
         public CategoryDataUIDescriptor() : base("epi-iconCategory")
         {
-            this.IsPrimaryType = true;
-            this.ContainerTypes = new[]
-            {
-                typeof (CategoryData)
-            };
-
-
         }
     }
 }

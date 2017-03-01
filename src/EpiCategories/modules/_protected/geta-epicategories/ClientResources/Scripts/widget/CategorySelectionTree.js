@@ -190,6 +190,7 @@ function (
 
         _setSelectedContentLinksAttr: function (value) {
             this._set('selectedContentLinks', value);
+            this._setToggleSelectNodesAttr(this.rootNode, this.selectedContentLinks);
         },
         
         _isItemSelectable: function (item) {

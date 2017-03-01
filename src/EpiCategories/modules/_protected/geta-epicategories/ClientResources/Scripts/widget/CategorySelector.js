@@ -57,16 +57,17 @@ function (
 ) {
 
     return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _HasChildDialogMixin, _ValueRequiredMixin], {
-        // tags:
-        //      internal
+        allowedTypes: null,
+        localization: res,
+        restrictedTypes: null,
+        searchArea: 'CMS/categories',
+        showSearchBox: true,
+        store: null,
+        templateString: template,
+        value: null,
 
         _categories: null,
         _updateDisplayPromise: null,
-
-        templateString: template,
-        localization: res,
-        value: null,
-        store: null,
 
         onChange: function (value) {
         },
@@ -255,7 +256,10 @@ function (
         _createDialog: function () {
             this.categorySelectorDialog = new CategorySelectorDialog({
                 roots: this.roots,
-                allowedTypes: this.allowedTypes
+                allowedTypes: this.allowedTypes,
+                restrictedTypes: this.restrictedTypes,
+                showSearchBox: this.showSearchBox,
+                searchArea: this.searchArea
             });
 
             this.dialog = new Dialog({

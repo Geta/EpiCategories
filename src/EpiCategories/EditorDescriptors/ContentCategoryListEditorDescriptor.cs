@@ -15,13 +15,22 @@ namespace Geta.EpiCategories.EditorDescriptors
         public ContentCategoryListEditorDescriptor(IEnumerable<IContentRepositoryDescriptor> contentRepositoryDescriptors)
         {
             _contentRepositoryDescriptors = contentRepositoryDescriptors;
-            AllowedTypes = new[] { typeof(CategoryData) };
             ClientEditingClass = "geta-epicategories/widget/CategorySelector";
         }
 
         public override void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
         {
             base.ModifyMetadata(metadata, attributes);
+
+            if (AllowedTypes == null)
+            {
+                AllowedTypes = new[] {typeof (CategoryData)};
+            }
+        }
+
+        protected override void SetEditorConfiguration(ExtendedMetadata metadata)
+        {
+            base.SetEditorConfiguration(metadata);
 
             var categoryRepositoryDescriptor = _contentRepositoryDescriptors.FirstOrDefault(x => x.Key == CategoryContentRepositoryDescriptor.RepositoryKey);
 

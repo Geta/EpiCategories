@@ -2,6 +2,7 @@
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using EPiServer.Filters;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
 

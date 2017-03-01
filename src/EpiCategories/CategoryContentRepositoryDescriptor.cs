@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EPiServer.Cms.Shell.UI.CompositeViews.Internal;
+using EPiServer.Cms.Shell.UI.UIDescriptors;
 using EPiServer.Core;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
@@ -59,7 +60,7 @@ namespace Geta.EpiCategories
             HomeView.ViewName
         };
 
-        public override string SearchArea => "cms/categories";
+        public override string SearchArea => "CMS/categories";
 
         public override string CustomNavigationWidget => "geta-epicategories/component/CategoryNavigationTree";
 

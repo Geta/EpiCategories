@@ -134,11 +134,6 @@ namespace Geta.EpiCategories
             return false;
         }
 
-        public override bool Equals(object other)
-        {
-            return Equals((ContentCategoryList)other);
-        }
-
         IEnumerator<string> IEnumerable<string>.GetEnumerator()
         {
             return _innerList.Select(x => x.ToReferenceWithoutVersion().ToString()).GetEnumerator();

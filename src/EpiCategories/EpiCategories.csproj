@@ -224,6 +224,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\CategoryPartialRouter.cs" />
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
+    <Compile Include="Search\CategoriesSearchProvider.cs" />
     <Compile Include="SpecializedProperties\PropertyContentCategoryList.cs" />
     <Compile Include="Transfer\PropertyContentCategoryListTransform.cs" />
     <Compile Include="Transfer\UnresolvedContentReference.cs" />

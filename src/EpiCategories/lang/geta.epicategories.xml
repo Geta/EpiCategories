@@ -84,5 +84,15 @@
                 </components>
             </cms>
         </episerver>
+        <cms>
+            <searchprovider>
+                <categories>
+                    <name>Categories</name>
+                </categories>
+                <findcategories>
+                    <name>Find categories</name>
+                </findcategories>
+            </searchprovider>
+        </cms>
     </language>
 </languages>
