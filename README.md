@@ -165,7 +165,3 @@ There is a UrlHelper and UrlResolver extension method included to get content UR
 
 	@Url.CategoryRoutedContentUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink)
 	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink)
-
-## Known issues
-
-1. CMS search is not yet working properly (solved in 1.0.2, released 2017-03-02)
