@@ -103,10 +103,7 @@ function (
 
             contentLinks.push(value);
             this.set('value', contentLinks);
-
-            if (!this.tree.getNodeById(value)) {
-                this.tree.expandSelectedNodes();
-            }
+            this.tree.selectNodeById(value);
         },
 
         _setValueAttr: function (value) {

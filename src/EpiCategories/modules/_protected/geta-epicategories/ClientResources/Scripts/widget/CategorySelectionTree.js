@@ -47,27 +47,8 @@ function (
         nodeConstructor: CategorySelectionTreeNode,
         selectedContentLinks: null,
 
-        _loadedAncestors: null,
-
         constructor: function () {
             this.selectedContentLinks = [];
-            this._loadedAncestors = [];
-        },
-
-        postCreate: function () {
-            this.inherited(arguments);
-            this.connect(this, "onOpen", lang.hitch(this, this._onNodeOpen));
-        },
-
-        startup: function() {
-            if (this._started) {
-                return;
-            }
-
-            this.inherited(arguments);
-
-            // Disabling multiselect in tree
-            this.dndController.singular = true;
         },
 
         getNodeById: function (contentLink) {
@@ -78,10 +59,6 @@ function (
             }
 
             return nodes[0];
-        },
-
-        _onNodeOpen: function (item, node) {
-            this.set("toggleSelectNodes", node, this.selectedContentLinks);
         },
 
         _onNodeSelectChanged: function (checked, item) {
@@ -106,69 +83,19 @@ function (
             return this.inherited(arguments);
         },
 
+        selectNodeById: function (contentLink) {
+            this.selectContent(contentLink, false).then(function (node) {
+                node.set('checked', true);
+                node.setSelected(false);
+            });
+        },
+
         expandSelectedNodes: function () {
-            var dfdList = [];
-
-            array.forEach(this.selectedContentLinks, function (contentLink) {
-                var dfd = new Deferred();
-                dfdList.push(dfd);
-
-                this.model.getAncestors(contentLink, lang.hitch(this, function (ancestors) {
-                    ancestors.splice(0, 2);
-                    this._onAncestorsLoaded(ancestors, dfd);
-                }));
-            }, this);
-
-            promiseAll(dfdList).then(lang.hitch(this, function () {
-                this._expandAncestors(lang.clone(this._loadedAncestors));
+            when(this.onLoadDeferred, lang.hitch(this, function() {
+                array.forEach(this.selectedContentLinks, function (contentLink) {
+                    this.selectNodeById(contentLink);
+                }, this);
             }));
-        },
-
-        _onAncestorsLoaded: function(ancestors, dfd) {
-            array.forEach(ancestors, function(ancestor) {
-                if (this._loadedAncestors.indexOf(ancestor.contentLink) === -1) {
-                    this._loadedAncestors.push(ancestor.contentLink);
-                }
-            }, this);
-
-            dfd.resolve();
-        },
-
-        _setToggleSelectNodesAttr: function (parentNode, toggleNodeIds) {
-            if (!parentNode || !lang.isArray(toggleNodeIds)) {
-                return;
-            }
-
-            var checked = false;
-
-            array.forEach(parentNode.getChildren(), function (childNode) {
-                if (childNode) {
-                    checked = toggleNodeIds.indexOf(childNode.item.contentLink) !== -1;
-                    childNode.set("checked", checked);
-
-                    if (childNode.hasChildren()) {
-                        this.set("toggleSelectNodes", childNode, toggleNodeIds);
-                    }
-                }
-            }, this);
-        },
-
-        _expandAncestors: function (ancestors) {
-            if (ancestors.length === 0) {
-                return;
-            }
-
-            var ancestor = ancestors[0];
-            var node = this.getNodeById(ancestor);
-            ancestors.splice(0, 1);
-
-            if (node && !node.isExpanded) {
-                this._expandNode(node).then(lang.hitch(this, function() {
-                    this._expandAncestors(ancestors);
-                }));
-            } else {
-                this._expandAncestors(ancestors);
-            }
         },
 
         _createTreeNode: function () {
@@ -192,7 +119,6 @@ function (
 
         _setSelectedContentLinksAttr: function (value) {
             this._set('selectedContentLinks', value);
-            this.set('toggleSelectNodes', this.rootNode, this.selectedContentLinks);
         },
         
         _isItemSelectable: function (item) {
