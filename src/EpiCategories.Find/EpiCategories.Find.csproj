@@ -241,9 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FindCategoriesSearchProvider.cs" />
-    <Compile Include="ServiceConfigureModule.cs" />
     <Compile Include="Extensions\ITypeSearchExtensions.cs" />
-    <Compile Include="FindContentInCategoryLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
