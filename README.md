@@ -154,6 +154,13 @@ You can use IContentInCategoryLocator to find content in certain categories:
         IEnumerable<T> GetChildren<T>(ContentReference contentLink, ContentCategoryList categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
     }
 
+## Routing
+Two routes are mapped during initialization. One for site categories and one for global categories. This means you can create templates for your category content types. They are routed in a similar way as normal pages. You can set the root segment on the "For This Site" and "For All Sites" category nodes in the Categories tree.
+
+![ScreenShot](/docs/for-this-site.jpg)
+
+Using above example, the URL "/topics/sports/" would be routed to the site category called "Sports".
+
 ### ICategoryRoutableContent interface
 Implement this on your content type and it will be possible to route category URL segments with the help of a partial router shipped in this package. Let's say you have an article list page with the URL "/articles/" on your site. If you have a category with the url segment of "sports", you can add it to the end of your list page URL, "/articles/sports/", and the category data will be added to the route values with the key "currentCategory". Your controller action method could look something like this:
 
