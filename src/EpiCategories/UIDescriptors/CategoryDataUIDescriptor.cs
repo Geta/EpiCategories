@@ -7,6 +7,7 @@ namespace Geta.EpiCategories.UIDescriptors
     {
         public CategoryDataUIDescriptor() : base("epi-iconObjectCategory")
         {
+            CommandIconClass = "epi-iconCategory";
             IsPrimaryType = true;
             ContainerTypes = new[]
             {
