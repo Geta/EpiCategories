@@ -5,10 +5,7 @@
     "dojo/_base/lang",
 
     "epi-cms/component/ContentNavigationTree",
-// resources
-    "epi/i18n!epi/cms/nls/episerver.cms.components.createcategory",
-    "epi/i18n!epi/cms/nls/episerver.cms.components.categorytree",
-    "epi/i18n!epi/cms/nls/episerver.shared.header"
+    "geta-epicategories/widget/CategoryForestStoreModel"
 ],
 
 function (
@@ -18,12 +15,16 @@ function (
     lang,
 
     ContentNavigationTree,
-// resources
-    resCreateCategory,
-    res
+    CategoryForestStoreModel
 ) {
 
     return declare([ContentNavigationTree], {
-        res: res
+        _createTreeModel: function () {
+            return new CategoryForestStoreModel({
+                categorySettings: this.settings.categorySettings,
+                roots: this.roots,
+                typeIdentifiers: this.typeIdentifiers
+            });
+        }
     });
 });

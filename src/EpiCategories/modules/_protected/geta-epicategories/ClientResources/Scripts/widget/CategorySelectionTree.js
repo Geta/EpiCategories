@@ -7,17 +7,13 @@
     "dojo/when",
     "dojo/promise/all",
     "dojo/Deferred",
-
+// epi
     "epi-cms/widget/ContentTree",
-    "epi-cms/widget/ContentForestStoreModel",
+    "geta-epicategories/widget/CategoryForestStoreModel",
     "epi/shell/TypeDescriptorManager",
     "epi/epi",
-
-    "geta-epicategories/widget/CategorySelectionTreeNode",
-// resources
-    "epi/i18n!epi/cms/nls/episerver.cms.components.createcategory",
-    "epi/i18n!epi/cms/nls/episerver.cms.components.categorytree",
-    "epi/i18n!epi/cms/nls/episerver.shared.header"
+// geta
+    "geta-epicategories/widget/CategorySelectionTreeNode"
 ],
 
 function (
@@ -29,26 +25,32 @@ function (
     when,
     promiseAll,
     Deferred,
-
+// epi
     ContentTree,
-    ContentForestStoreModel,
+    CategoryForestStoreModel,
     TypeDescriptorManager,
     epi,
-
-    CategorySelectionTreeNode,
-// resources
-    resCreateCategory,
-    res
+// geta
+    CategorySelectionTreeNode
 ) {
 
     return declare([ContentTree], {
-        res: res,
-        showRoot: false,
+        categorySettings: null,
         nodeConstructor: CategorySelectionTreeNode,
         selectedContentLinks: null,
+        selection: null,
+        showRoot: false,
 
         constructor: function () {
             this.selectedContentLinks = [];
+        },
+
+        expandSelectedNodes: function () {
+            when(this.onLoadDeferred, lang.hitch(this, function () {
+                array.forEach(this.selectedContentLinks, function (contentLink) {
+                    this.selectNodeById(contentLink, false);
+                }, this);
+            }));
         },
 
         getNodeById: function (contentLink) {
@@ -59,6 +61,44 @@ function (
             }
 
             return nodes[0];
+        },
+
+        selectNodeById: function (contentLink, highlight) {
+            this.selectContent(contentLink, true).then(function (node) {
+                node.setSelected(highlight);
+                node.set('checked', true);
+            });
+        },
+
+        _createTreeModel: function () {
+            return new CategoryForestStoreModel({
+                categorySettings: this.categorySettings,
+                roots: this.roots,
+                typeIdentifiers: this.typeIdentifiers
+            });
+        },
+
+        _createTreeNode: function () {
+            var node = this.inherited(arguments);
+
+            if (this._isItemSelectable(node.item)) {
+                node.connect(node, "onNodeSelectChanged", lang.hitch(this, function (checked, item) {
+                    this._onNodeSelectChanged(checked, item);
+                }));
+            }
+
+            return node;
+        },
+
+        _expandExtraNodes: function () {
+            this.expandSelectedNodes();
+            return this.inherited(arguments);
+        },
+
+        _isItemSelectable: function (item) {
+            var acceptedTypes = TypeDescriptorManager.getValidAcceptedTypes([item.typeIdentifier], this.typeIdentifiers, this.restrictedTypes);
+
+            return acceptedTypes.length > 0;
         },
 
         _onNodeSelectChanged: function (checked, item) {
@@ -78,53 +118,8 @@ function (
             }
         },
 
-        _expandExtraNodes: function() {
-            this.expandSelectedNodes();
-            return this.inherited(arguments);
-        },
-
-        selectNodeById: function (contentLink) {
-            this.selectContent(contentLink, false).then(function (node) {
-                node.set('checked', true);
-                node.setSelected(false);
-            });
-        },
-
-        expandSelectedNodes: function () {
-            when(this.onLoadDeferred, lang.hitch(this, function() {
-                array.forEach(this.selectedContentLinks, function (contentLink) {
-                    this.selectNodeById(contentLink);
-                }, this);
-            }));
-        },
-
-        _createTreeNode: function () {
-            var node = this.inherited(arguments);
-
-            if (this._isItemSelectable(node.item)) {
-                node.connect(node, "onNodeSelectChanged", lang.hitch(this, function (checked, item) {
-                    this._onNodeSelectChanged(checked, item);
-                }));
-            }
-
-            return node;
-        },
-
-        _createTreeModel: function () {
-            return new ContentForestStoreModel({
-                roots: this.roots,
-                typeIdentifiers: this.typeIdentifiers
-            });
-        },
-
         _setSelectedContentLinksAttr: function (value) {
             this._set('selectedContentLinks', value);
-        },
-        
-        _isItemSelectable: function (item) {
-            var acceptedTypes = TypeDescriptorManager.getValidAcceptedTypes([item.typeIdentifier], this.typeIdentifiers, ['episerver.core.contentfolder']);
-
-            return acceptedTypes.length > 0;
         }
     });
 });

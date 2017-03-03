@@ -187,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lang\geta.epicategories.xml" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategoryForestStoreModel.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTree.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelector.js" />
@@ -203,6 +204,8 @@
   <ItemGroup>
     <Compile Include="CategoryBackingTypeResolver.cs" />
     <Compile Include="CategoryInitializationModule.cs" />
+    <Compile Include="CategoryRoot.cs" />
+    <Compile Include="CategorySettings.cs" />
     <Compile Include="CategoryTreeComponent.cs" />
     <Compile Include="CategoryContentRepositoryDescriptor.cs" />
     <Compile Include="CategoryData.cs" />
@@ -214,7 +217,9 @@
     <Compile Include="EditorDescriptors\CategoryEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\ContentCategoryListEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\HideCategoryEditorDescriptor.cs" />
+    <Compile Include="Extensions\IContentRepositoryExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\RouteCollectionExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Extensions\UrlResolverExtensions.cs" />
     <Compile Include="ICategorizableContent.cs" />
@@ -224,11 +229,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\CategoryPartialRouter.cs" />
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
+    <Compile Include="Routing\ContentTypeConstraint.cs" />
     <Compile Include="Search\CategoriesSearchProvider.cs" />
     <Compile Include="SpecializedProperties\PropertyContentCategoryList.cs" />
     <Compile Include="Transfer\PropertyContentCategoryListTransform.cs" />
     <Compile Include="Transfer\UnresolvedContentReference.cs" />
     <Compile Include="UIDescriptors\CategoryDataUIDescriptor.cs" />
+    <Compile Include="UIDescriptors\CategoryRootUIDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AfterBuild.proj">

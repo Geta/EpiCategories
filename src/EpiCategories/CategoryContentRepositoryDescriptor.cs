@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EPiServer.Cms.Shell.UI.CompositeViews.Internal;
-using EPiServer.Cms.Shell.UI.UIDescriptors;
 using EPiServer.Core;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
@@ -13,11 +13,18 @@ namespace Geta.EpiCategories
     [ServiceConfiguration(typeof(IContentRepositoryDescriptor))]
     public class CategoryContentRepositoryDescriptor : ContentRepositoryDescriptorBase
     {
+        public readonly CategorySettings CategorySettings;
+
+        public CategoryContentRepositoryDescriptor(CategorySettings categorySettings)
+        {
+            CategorySettings = categorySettings;
+        }
+
         public static string RepositoryKey = "categories";
 
         public override string Key => RepositoryKey;
 
-        public override string Name => LocalizationService.Current.GetString("/contentrepositories/categories/name");
+        public override string Name => LocalizationService.Current.GetString("/admin/categories/heading");
 
         public override IEnumerable<Type> CreatableTypes => new[]
         {
@@ -40,11 +47,13 @@ namespace Geta.EpiCategories
             {
                 var list = new List<ContentReference>
                 {
-                    SiteDefinition.Current.GlobalAssetsRoot
+                    new ContentReference(this.CategorySettings.GlobalCategoriesRoot)
                 };
 
                 if (SiteDefinition.Current.GlobalAssetsRoot != SiteDefinition.Current.SiteAssetsRoot)
-                    list.Add(SiteDefinition.Current.SiteAssetsRoot);
+                {
+                    list.Add(new ContentReference(this.CategorySettings.SiteCategoriesRoot));
+                }
 
                 return list;
             }
@@ -55,6 +64,10 @@ namespace Geta.EpiCategories
             typeof(CategoryData)
         };
 
+        public override IEnumerable<string> PreventContextualContentFor => Roots.Select(x => x.ToReferenceWithoutVersion().ToString());
+        public override IEnumerable<string> PreventCopyingFor => PreventContextualContentFor;
+        public override IEnumerable<string> PreventDeletionFor => PreventContextualContentFor;
+
         public override IEnumerable<string> MainViews => new []
         {
             HomeView.ViewName
@@ -63,7 +76,5 @@ namespace Geta.EpiCategories
         public override string SearchArea => "CMS/categories";
 
         public override string CustomNavigationWidget => "geta-epicategories/component/CategoryNavigationTree";
-
-        public override string CustomSelectTitle => LocalizationService.Current.GetString("/contentrepositories/categories/customselecttitle");
     }
 }

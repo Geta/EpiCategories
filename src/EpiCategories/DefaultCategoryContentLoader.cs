@@ -6,6 +6,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.Globalization;
 using EPiServer.Web;
+using Geta.EpiCategories.Extensions;
 
 namespace Geta.EpiCategories
 {
@@ -69,7 +70,7 @@ namespace Geta.EpiCategories
         {
             if (SiteDefinition.Current.SiteAssetsRoot != SiteDefinition.Current.GlobalAssetsRoot)
             {
-                var firstSiteCategory = GetFirstBySegment<T>(SiteDefinition.Current.SiteAssetsRoot, urlSegment, loaderOptions);
+                var firstSiteCategory = GetFirstBySegment<T>(ContentRepository.GetOrCreateSiteCategoriesRoot(), urlSegment, loaderOptions);
 
                 if (firstSiteCategory != null)
                 {
@@ -77,7 +78,7 @@ namespace Geta.EpiCategories
                 }
             }
 
-            return GetFirstBySegment<T>(SiteDefinition.Current.GlobalAssetsRoot, urlSegment, loaderOptions);
+            return GetFirstBySegment<T>(ContentRepository.GetOrCreateGlobalCategoriesRoot(), urlSegment, loaderOptions);
         }
 
         public virtual T GetFirstBySegment<T>(ContentReference parentLink, string urlSegment, LoaderOptions loaderOptions) where T : CategoryData
@@ -93,32 +94,32 @@ namespace Geta.EpiCategories
 
         public virtual IEnumerable<T> GetGlobalCategories<T>() where T : CategoryData
         {
-            return GetChildren<T>(SiteDefinition.Current.GlobalAssetsRoot);
+            return GetChildren<T>(ContentRepository.GetOrCreateGlobalCategoriesRoot());
         }
 
         public virtual IEnumerable<T> GetGlobalCategories<T>(CultureInfo culture) where T : CategoryData
         {
-            return GetChildren<T>(SiteDefinition.Current.GlobalAssetsRoot, culture);
+            return GetChildren<T>(ContentRepository.GetOrCreateGlobalCategoriesRoot(), culture);
         }
 
         public virtual IEnumerable<T> GetGlobalCategories<T>(LoaderOptions loaderOptions) where T : CategoryData
         {
-            return GetChildren<T>(SiteDefinition.Current.GlobalAssetsRoot, loaderOptions);
+            return GetChildren<T>(ContentRepository.GetOrCreateGlobalCategoriesRoot(), loaderOptions);
         }
 
         public virtual IEnumerable<T> GetSiteCategories<T>() where T : CategoryData
         {
-            return GetChildren<T>(SiteDefinition.Current.SiteAssetsRoot);
+            return GetChildren<T>(ContentRepository.GetOrCreateSiteCategoriesRoot());
         }
 
         public virtual IEnumerable<T> GetSiteCategories<T>(CultureInfo culture) where T : CategoryData
         {
-            return GetChildren<T>(SiteDefinition.Current.SiteAssetsRoot, culture);
+            return GetChildren<T>(ContentRepository.GetOrCreateSiteCategoriesRoot(), culture);
         }
 
         public virtual IEnumerable<T> GetSiteCategories<T>(LoaderOptions loaderOptions) where T : CategoryData
         {
-            return GetChildren<T>(SiteDefinition.Current.SiteAssetsRoot, loaderOptions);
+            return GetChildren<T>(ContentRepository.GetOrCreateSiteCategoriesRoot(), loaderOptions);
         }
 
         public virtual bool TryGet<T>(ContentReference categoryLink, out T category) where T : CategoryData

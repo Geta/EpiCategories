@@ -5,7 +5,7 @@ namespace Geta.EpiCategories.UIDescriptors
     [UIDescriptorRegistration]
     public class CategoryDataUIDescriptor : UIDescriptor<CategoryData>
     {
-        public CategoryDataUIDescriptor() : base("epi-iconCategory")
+        public CategoryDataUIDescriptor() : base("epi-iconObjectCategory")
         {
             IsPrimaryType = true;
             ContainerTypes = new[]

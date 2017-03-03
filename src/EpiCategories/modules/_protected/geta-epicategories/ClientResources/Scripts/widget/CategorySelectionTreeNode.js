@@ -61,12 +61,12 @@ function (
                 return;
             }
 
-            domClass.add(this.iconNode, "dijitHidden");
-
             when(this.store.get(this.item.contentLink)).then(lang.hitch(this, function (content) {
                 if (!content.properties.isSelectable) {
                     return;
                 }
+
+                domClass.add(this.iconNode, "dijitHidden");
 
                 var container = domConstruct.create('span', {
                     'class': 'epi-checkboxNode dijitTreeExpando'

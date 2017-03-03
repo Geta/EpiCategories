@@ -33,7 +33,9 @@ function (
 
     return declare([_LayoutWidget], {
         allowedTypes: null,
+        categorySettings: null,
         model: null,
+        repositoryKey: null,
         restrictedTypes: null,
         showSearchBox: true,
         searchArea: 'cms/categories',
@@ -85,7 +87,9 @@ function (
             }
 
             this.tree = new CategorySelectionTree({
+                categorySettings: this.categorySettings,
                 roots: roots,
+                repositoryKey: this.repositoryKey,
                 allowedTypes: this.allowedTypes,
                 restrictedTypes: this.restrictedTypes,
                 typeIdentifiers: typeIdentifiers
@@ -96,6 +100,7 @@ function (
 
         _appendValue: function (value) {
             var contentLinks = this.get('value');
+            this.tree.selectNodeById(value, true);
 
             if (contentLinks.indexOf(value) !== -1) {
                 return;
@@ -103,7 +108,6 @@ function (
 
             contentLinks.push(value);
             this.set('value', contentLinks);
-            this.tree.selectNodeById(value);
         },
 
         _setValueAttr: function (value) {
