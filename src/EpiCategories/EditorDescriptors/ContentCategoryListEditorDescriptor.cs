@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EPiServer;
 using EPiServer.Shell;
 using EPiServer.Shell.ObjectEditing;
 using EPiServer.Shell.ObjectEditing.EditorDescriptors;
-using Geta.EpiCategories.Extensions;
 
 namespace Geta.EpiCategories.EditorDescriptors
 {
@@ -24,12 +22,12 @@ namespace Geta.EpiCategories.EditorDescriptors
 
         public override void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
         {
-            base.ModifyMetadata(metadata, attributes);
-
             if (AllowedTypes == null)
             {
-                AllowedTypes = new[] {typeof (CategoryData)};
+                AllowedTypes = new[] { typeof(CategoryData) };
             }
+
+            base.ModifyMetadata(metadata, attributes);
         }
 
         protected override void SetEditorConfiguration(ExtendedMetadata metadata)
