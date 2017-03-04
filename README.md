@@ -63,13 +63,13 @@ Implement ICategorizableContent on your content type class to categorize your co
 
 	public interface ICategorizableContent
 	{
-		IList&lt;ContentReference> Categories { get; set; }
+		IList<ContentReference> Categories { get; set; }
 	}
 	
 	public class MyPageType : PageData, ICategorizableContent
 	{
 		[Categories]
-		public virtual IList&lt;ContentReference> Categories { get; set; }
+		public virtual IList<ContentReference> Categories { get; set; }
 	}
 	
 Above property will look familiar if you have used standard Episerver categories before.
@@ -79,7 +79,7 @@ Above property will look familiar if you have used standard Episerver categories
 
 If you prefer to use the native content reference list editor for your categories you can skip the CategoriesAttribute:
 
-	public virtual IList&lt;ContentReference> Categories { get; set; }
+	public virtual IList<ContentReference> Categories { get; set; }
 
 ![ScreenShot](/docs/content-reference-list.jpg)
 
@@ -148,17 +148,17 @@ You can use IContentInCategoryLocator to find content in certain categories:
 
     public interface IContentInCategoryLocator
     {
-        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable&lt;ContentReference> categories) where T : ICategorizableContent, IContent;
+        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
 
-        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable&lt;ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
+        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
 
-        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable&lt;ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
+        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
 
-        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable&lt;ContentReference> categories) where T : ICategorizableContent, IContent;
+        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
 
-        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable&lt;ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
+        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
 
-        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable&lt;ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
+        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
     }
 
 ## Routing
