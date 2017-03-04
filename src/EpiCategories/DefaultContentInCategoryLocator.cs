@@ -69,7 +69,7 @@ namespace Geta.EpiCategories
         {
             return ContentRepository
                 .GetChildren<T>(contentLink, loaderOptions)
-                .Where(x => x.Categories.ContainsAny(categories));
+                .Where(x => x.Categories.MemberOfAny(categories));
         }
 
         protected virtual LoaderOptions CreateDefaultListLoaderOptions()

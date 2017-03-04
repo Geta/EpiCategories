@@ -88,6 +88,13 @@ If you want a single category on your content type just add a ContentReference p
 	[UIHint(CategoryUIHint.Category)]
 	public virtual ContentReference MainCategory { get; set; }
 
+### IEnumerable&lt;ContentReference> extension methods
+The following extension methods are included:
+
+1. MemberOf(this IEnumerable&lt;ContentReference> contentLinks, ContentReference contentReference)
+2. MemberOfAny(this IEnumerable&lt;ContentReference> contentLinks, IEnumerable&lt;ContentReference> otherContentLinks)
+3. MemberOfAll(this IEnumerable&lt;ContentReference> contentLinks, IEnumerable&lt;ContentReference> otherContentLinks)
+
 ### ICategoryContentLoader interface
 There is an implementation of ICategoryContentLoader (note that in 1.0.0 it is mistakenly named ICategoryContentRepository) that you can use to load categories:
 
