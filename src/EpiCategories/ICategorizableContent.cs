@@ -1,7 +1,10 @@
-﻿namespace Geta.EpiCategories
+﻿using System.Collections.Generic;
+using EPiServer.Core;
+
+namespace Geta.EpiCategories
 {
     public interface ICategorizableContent
     {
-         ContentCategoryList Categories { get; set; } 
+         IList<ContentReference> Categories { get; set; } 
     }
 }

@@ -2,6 +2,7 @@
     "dojo/_base/array",
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/Evented",
 
     "dijit/layout/_LayoutWidget",
     "dijit/form/Button",
@@ -18,6 +19,7 @@ function (
     array,
     declare,
     lang,
+    Evented,
 
     _LayoutWidget,
 
@@ -31,7 +33,7 @@ function (
     SearchBox
 ) {
 
-    return declare([_LayoutWidget], {
+    return declare([_LayoutWidget, Evented], {
         allowedTypes: null,
         categorySettings: null,
         model: null,
@@ -39,6 +41,7 @@ function (
         restrictedTypes: null,
         showSearchBox: true,
         searchArea: 'cms/categories',
+        settings: null,
         value: [],
 
         constructor: function () {
@@ -71,7 +74,7 @@ function (
                     },
                     onItemAction: lang.hitch(this, function (item) {
                         if (item && item.metadata && this._checkAcceptance(item.metadata.typeIdentifier)) {
-                            this._appendValue(item.metadata.id);
+                            this.appendValue(item.metadata.id);
                         }
                     })
                 });
@@ -92,14 +95,28 @@ function (
                 repositoryKey: this.repositoryKey,
                 allowedTypes: this.allowedTypes,
                 restrictedTypes: this.restrictedTypes,
-                typeIdentifiers: typeIdentifiers
+                typeIdentifiers: typeIdentifiers,
+                settings: this.settings
             });
+
+            this.tree.on('onCreateCategoryCommandExecuted', lang.hitch(this, function(command) {
+                this.emit('onCreateCategoryCommandExecuted', command);
+            }));
+
+            this.tree.on('onNewCategoryCreated', lang.hitch(this, function(category) {
+                this.emit('onNewCategoryCreated', category);
+            }));
 
             this.addChild(this.tree);
         },
 
-        _appendValue: function (value) {
-            var contentLinks = this.get('value');
+        onShow: function () {
+            this.tree.expandSelectedNodes();
+        },
+
+        appendValue: function (value) {
+            var contentLinks = this.get('value') || [];
+
             this.tree.selectNodeById(value, true);
 
             if (contentLinks.indexOf(value) !== -1) {

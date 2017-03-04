@@ -67,6 +67,7 @@ function (
         restrictedTypes: null,
         roots: null,
         searchArea: 'CMS/categories',
+        settings: null,
         showSearchBox: true,
         store: null,
         templateString: template,
@@ -98,6 +99,15 @@ function (
             }
 
             this.inherited(arguments);
+        },
+
+        onCreateCategoryCommandExecuted: function () {
+            this.dialog.hide();
+        },
+
+        onNewCategoryCreated: function (category) {
+            this.dialog.show(true);
+            this.categorySelectorDialog.appendValue(category.contentLink);
         },
 
         _setValueAttr: function (value) {
@@ -264,8 +274,12 @@ function (
                 allowedTypes: this.allowedTypes,
                 restrictedTypes: this.restrictedTypes,
                 showSearchBox: this.showSearchBox,
-                searchArea: this.searchArea
+                searchArea: this.searchArea,
+                settings: this.settings
             });
+
+            this.categorySelectorDialog.on('onCreateCategoryCommandExecuted', lang.hitch(this, this.onCreateCategoryCommandExecuted));
+            this.categorySelectorDialog.on('onNewCategoryCreated', lang.hitch(this, this.onNewCategoryCreated));
 
             this.dialog = new Dialog({
                 title: this.localization.popuptitle,

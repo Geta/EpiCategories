@@ -95,6 +95,11 @@ namespace Geta.EpiCategories
             return _innerList.Any(x => x.CompareToIgnoreWorkID(item));
         }
 
+        public List<TOutput> ConvertAll<TOutput>(Converter<ContentReference, TOutput> converter)
+        {
+            return _innerList.ConvertAll(converter);
+        }
+
         public ContentCategoryList Copy()
         {
             var categoryList = (ContentCategoryList)MemberwiseClone();

@@ -7,6 +7,7 @@
             <span data-dojo-attach-point="iconNode" class="dijitIcon dijitTreeIcon" role="presentation"></span>    
             <span data-dojo-attach-point="thumbnailNode" class="epi-thumbnailIcon" role="presentation"></span>
             <span data-dojo-attach-point="extraIconsContainer" class="epi-extraIconsContainer" role="presentation">
+                <span data-dojo-attach-point="iconNodeMenu" class="epi-extraIcon epi-pt-contextMenu" role="presentation" data-dojo-attach-event="onmousedown:_onMouseDownIconNodeMenu, click: _onClickIconNodeMenu">&nbsp;</span>
                 <span data-dojo-attach-point="iconNodeLanguage" class="epi-extraIcon epi-pt-currentLanguageMissing" role="presentation">&nbsp;</span>
             </span>
             <span data-dojo-attach-point="labelNode" class="dijitTreeLabel" data-dojo-attach-event="onclick:_onLabelClick, keyup:_onLabelKeyUp" role="treeitem" tabindex="-1" aria-selected="false"></span>

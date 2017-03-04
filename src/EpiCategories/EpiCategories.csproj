@@ -187,11 +187,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lang\geta.epicategories.xml" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategoryContentContextMenuCommandProvider.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategoryForestStoreModel.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTree.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelector.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectorDialog.js" />
+    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\command\CreateCategoryFromSelector.js" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\templates\CategorySelectionTreeNode.html" />
     <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\templates\CategorySelector.html" />
     <Content Include="packages.config" />
@@ -202,7 +204,6 @@
     <Content Include="Geta.EpiCategories.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryBackingTypeResolver.cs" />
     <Compile Include="CategoryInitializationModule.cs" />
     <Compile Include="CategoryRoot.cs" />
     <Compile Include="CategorySettings.cs" />
@@ -210,12 +211,10 @@
     <Compile Include="CategoryContentRepositoryDescriptor.cs" />
     <Compile Include="CategoryData.cs" />
     <Compile Include="CategoryUIHint.cs" />
-    <Compile Include="ContentCategoryList.cs" />
+    <Compile Include="DataAnnotations\CategoriesAttribute.cs" />
     <Compile Include="DefaultCategoryContentLoader.cs" />
     <Compile Include="DefaultContentInCategoryLocator.cs" />
-    <Compile Include="EditorDescriptors\ContentCategoryListNativeEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\CategoryEditorDescriptor.cs" />
-    <Compile Include="EditorDescriptors\ContentCategoryListEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\HideCategoryEditorDescriptor.cs" />
     <Compile Include="Extensions\IContentRepositoryExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
@@ -231,9 +230,6 @@
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
     <Compile Include="Routing\ContentTypeConstraint.cs" />
     <Compile Include="Search\CategoriesSearchProvider.cs" />
-    <Compile Include="SpecializedProperties\PropertyContentCategoryList.cs" />
-    <Compile Include="Transfer\PropertyContentCategoryListTransform.cs" />
-    <Compile Include="Transfer\UnresolvedContentReference.cs" />
     <Compile Include="UIDescriptors\CategoryDataUIDescriptor.cs" />
     <Compile Include="UIDescriptors\CategoryRootUIDescriptor.cs" />
   </ItemGroup>
@@ -243,6 +239,7 @@
     </Content>
     <Content Include="modules\_protected\geta-epicategories\module.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
