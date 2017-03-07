@@ -13,18 +13,20 @@ namespace Geta.EpiCategories
     [ServiceConfiguration(typeof(IContentRepositoryDescriptor))]
     public class CategoryContentRepositoryDescriptor : ContentRepositoryDescriptorBase
     {
-        public readonly CategorySettings CategorySettings;
-
         public CategoryContentRepositoryDescriptor(CategorySettings categorySettings)
         {
             CategorySettings = categorySettings;
         }
+
+        public readonly CategorySettings CategorySettings;
 
         public static string RepositoryKey = "categories";
 
         public override string Key => RepositoryKey;
 
         public override string Name => LocalizationService.Current.GetString("/admin/categories/heading");
+
+        public virtual string CreatingTypeIdentifier => typeof (CategoryData).FullName.ToLowerInvariant();
 
         public override IEnumerable<Type> CreatableTypes => new[]
         {

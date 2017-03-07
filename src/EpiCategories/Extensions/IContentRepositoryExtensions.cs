@@ -21,7 +21,7 @@ namespace Geta.EpiCategories.Extensions
         {
             var siteAssetsExists = SiteDefinition.Current.GlobalAssetsRoot != SiteDefinition.Current.SiteAssetsRoot;
             var name = siteAssetsExists ? "For This Site" : "Categories";
-            var routeSegment = siteAssetsExists ? "site-categories" : "categories";
+            var routeSegment = "categories";
             return contentRepository.GetOrCreateCategoriesRoot(SiteDefinition.Current.SiteAssetsRoot, name, routeSegment);
         }
 

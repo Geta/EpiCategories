@@ -110,25 +110,16 @@ function (
             this.addChild(this.tree);
         },
 
-        onShow: function () {
-            this.tree.expandSelectedNodes();
-        },
-
         appendValue: function (value) {
             var contentLinks = this.get('value') || [];
 
-            this.tree.selectNodeById(value, true);
-
-            if (contentLinks.indexOf(value) !== -1) {
-                return;
+            if (contentLinks.indexOf(value) === -1) {
+                contentLinks.push(value);
+                this.set('value', contentLinks);
             }
-
-            contentLinks.push(value);
-            this.set('value', contentLinks);
         },
 
-        _setValueAttr: function (value) {
-            this.tree.set('selectedContentLinks', value);
+        onShow: function () {
         },
 
         _checkAcceptance: function (typeIdentifier) {
@@ -139,6 +130,10 @@ function (
 
         _getValueAttr: function () {
             return this.tree.get('selectedContentLinks');
+        },
+        
+        _setValueAttr: function (value) {
+            this.tree.set('selectedContentLinks', value);
         }
     });
 });

@@ -74,6 +74,7 @@ function (
             //Create the context menu command provider
             this._contextMenuCommandProvider = new this.contextMenuCommandProvider({
                 allowedTypes: this.allowedTypes,
+                creatingTypeIdentifier: this.settings.creatingTypeIdentifier,
                 treeModel: this.model,
                 clipboardManager: this._clipboardManager,
                 repositoryKey: this.repositoryKey,
@@ -117,8 +118,10 @@ function (
 
         selectNodeById: function (contentLink, highlight) {
             this.selectContent(contentLink, true).then(function (node) {
-                node.setSelected(highlight);
-                node.set('checked', true);
+                if (node.item.contentLink === contentLink) {
+                    node.setSelected(highlight);
+                    node.set('checked', true);
+                }
             });
         },
 
@@ -137,12 +140,18 @@ function (
                 node.connect(node, "onNodeSelectChanged", lang.hitch(this, function (checked, item) {
                     this._onNodeSelectChanged(checked, item);
                 }));
+
+                var selectedContentLinks = this.get('selectedContentLinks');
+
+                if (selectedContentLinks && selectedContentLinks.indexOf(node.item.contentLink) !== -1) {
+                    node.set('checked', true);
+                }
             }
 
             node.on("onContextMenuClick", lang.hitch(this, function (node) {
                 this._updateGlobalToolbarButtons(node.node);
-                this._showContextMenu(node);
                 this.set("_focusNode", node.node);
+                this._showContextMenu(node);
             }));
 
             return node;
@@ -153,12 +162,7 @@ function (
             return this.inherited(arguments);
         },
 
-        _getSelectionData: function (/*dojo/data/Item*/itemData) {
-            // summary:
-            //      Return selection data
-            // tags:
-            //      private
-
+        _getSelectionData: function (itemData) {
             return itemData ? [{ type: "epi.cms.contentdata", data: itemData }] : [];
         },
 
@@ -169,11 +173,6 @@ function (
         },
 
         _onContextMenuClose: function () {
-            // summary:
-            //      Handles context menu close event
-            // tags:
-            //      private
-
             this._removeHighlightClass();
         },
 
@@ -218,6 +217,11 @@ function (
             if (this._focusNode && this._focusNode !== this.selectedNode && this._focusNode.rowNode) {
                 domClass.remove(this._focusNode.rowNode, "dijitTreeRowSelected");
             }
+        },
+
+        _set_focusNodeAttr: function (value) {
+            this._removeHighlightClass();
+            this._focusNode = value;
         },
 
         _setSelectedContentLinksAttr: function (value) {

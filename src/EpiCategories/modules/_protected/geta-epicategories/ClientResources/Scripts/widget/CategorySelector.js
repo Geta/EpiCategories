@@ -58,6 +58,7 @@ function (
 
     return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _HasChildDialogMixin, _ValueRequiredMixin], {
         _categories: null,
+        _preventSetDialogValueOnShow: false,
         _updateDisplayPromise: null,
 
         categorySettings: null,
@@ -103,11 +104,13 @@ function (
 
         onCreateCategoryCommandExecuted: function () {
             this.dialog.hide();
+            this._preventSetDialogValueOnShow = true;
         },
 
         onNewCategoryCreated: function (category) {
             this.dialog.show(true);
             this.categorySelectorDialog.appendValue(category.contentLink);
+            this._preventSetDialogValueOnShow = false;
         },
 
         _setValueAttr: function (value) {
@@ -251,7 +254,10 @@ function (
         },
 
         _onShow: function () {
-            this.categorySelectorDialog.set("value", lang.clone(this._categories));
+            if (!this._preventSetDialogValueOnShow) {
+                this.categorySelectorDialog.set("value", lang.clone(this._categories));
+            }
+
             this.isShowingChildDialog = true;
             this.categorySelectorDialog.onShow();
         },

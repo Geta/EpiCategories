@@ -24,16 +24,9 @@ function (
 ) {
 
     return declare([_CommandProviderMixin, Destroyable, Evented], {
-        // summary:
-        //      Command provider for content context menus
-        // tags:
-        //      internal xproduct
-
-        // treeModel: [Object]
-        //      Model use for the commands
-        treeModel: null,
-
         clipboardManager: null,
+        creatingTypeIdentifier: null,
+        treeModel: null,
 
         _settings: null,
 
@@ -71,7 +64,7 @@ function (
 
             var createCommand = new CreateCategoryFromSelector({
                 category: 'context',
-                creatingTypeIdentifier: "geta.epicategories.categorydata",
+                creatingTypeIdentifier: this.creatingTypeIdentifier,
                 autoPublish: true,
                 allowedTypes: this.allowedTypes,
                 restrictedTypes: this.restrictedTypes

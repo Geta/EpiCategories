@@ -2,11 +2,13 @@
     "dojo/_base/array",
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/Deferred",
     "dojo/Evented",
     "dojo/aspect",
     "dojo/on",
     "dojo/topic",
     "dojo/when",
+    "dojo/promise/all",
 
 // Shell
     "epi/dependency",
@@ -27,11 +29,13 @@ function (
     array,
     declare,
     lang,
+    Deferred,
     Evented,
     aspect,
     on,
     topic,
     when,
+    all,
 
 // Shell
     dependency,
@@ -49,92 +53,30 @@ function (
 ) {
 
     return declare([_Command, Evented, _ContextualContentContextMixin], {
-        // tags:
-        //      internal
-
-        // canExecute: [Boolean]
-        //      Default value indicate that command can execute
         canExecute: true,
-
-        // canSelectOwnerContent:
-        //      Indicate that command can select owner content
         canSelectOwnerContent: false,
-
-        currentContent: null,
-
-        // showButtons:
-        //      Indicate that command show buttons
         showButtons: false,
-
-        // value: [String]
-        //      Default select content
         value: null,
-
-        // showRoot: [Boolean]
-        //      True if show root on dialog, otherwise don't show root
         showRoot: false,
-
-        // roots: [Array]
-        //      The roots to show in the selector.
         roots: null,
-
-        // creatingTypeIdentifier: [String]
-        //      Type identifier of the content which is being created.
         creatingTypeIdentifier: null,
-
-        // containerTypeIdentifiers: [Array]
-        //      Type identifiers of content
         containerTypeIdentifiers: null,
-
-        // modelContent: [Widget]
-        //      That model selector dialog
         modelContent: null,
-
-        // confirmActionText: [String]
-        //      Confirm action text in dialog
         confirmActionText: createcontentselectorresources.buttons.confirmation,
-
-        // description: [String]
-        //      Description in dialog
         description: null,
-
-        // title: [String]
-        //      Title in dialog
         title: null,
-
-        // autoPublish: Boolean
-        //     Indicates if the content should be published automatically when created if the user has publish rights.
         autoPublish: true,
-
         typeDescriptorManager: null,
-
         contentRepositoryDescriptors: null,
-
-        // allowedTypes: [public] Array
-        //      The types which are allowed for the given property. i.e used for filtering based on AllowedTypesAttribute
         allowedTypes: null,
-
-        // restrictedTypes: [public] Array
-        //      The types which are restricted.
         restrictedTypes: null,
 
         postscript: function () {
-            // summary:
-            //    Initial settings value.
-            //
-            // tags:
-            //    public
-
             this.inherited(arguments);
             this._initialize();
         },
 
         _initialize: function () {
-            // summary:
-            //    Initial application setting
-            //
-            // tags:
-            //    private
             if (!this.creatingTypeIdentifier) {
                 throw "You need to specify a creatingTypeIdentifier";
             }
@@ -142,9 +84,8 @@ function (
             if (this._initialized) {
                 return;
             }
+
             var registry = dependency.resolve("epi.storeregistry");
-            this.contentStore = this.contentStore || registry.get("epi.cms.content.light");
-            this.contextService = this.contextService || dependency.resolve("epi.shell.ContextService");
             this.contentTypeStore = this.contentTypeStore || registry.get("epi.cms.contenttype");
 
             this.contentRepositoryDescriptors = this.contentRepositoryDescriptors || dependency.resolve("epi.cms.contentRepositoryDescriptors");
@@ -156,12 +97,13 @@ function (
 
             for (var index in this.contentRepositoryDescriptors) {
                 var descriptor = this.contentRepositoryDescriptors[index];
-                //use the first descriptor that matches the creating type identifier.
+
                 if (array.some(descriptor.containedTypes, matchType, this)) {
                     repositoryDescriptor = descriptor;
                     break;
                 }
             }
+
             if (repositoryDescriptor) {
                 var containerTypeIdentifiers = TypeDescriptorManager.getValue(this.creatingTypeIdentifier, "containerTypes");
                 this.containerTypeIdentifiers = containerTypeIdentifiers ?
@@ -184,12 +126,40 @@ function (
             this._initialized = true;
         },
 
-        _execute: function () {
-            // summary:
-            //		Executes this command; ...
-            // tags:
-            //		protected
+        _canExecute: function () {
+            var model = this.model,
+                createAction = ContentActionSupport.action.Create,
+                createProviderCapability = ContentActionSupport.providerCapabilities.Create,
+                canExecute = model && !(model.isWastebasket || model.isDeleted) &&  // Ensure a model is available and it isn't deleted
+                    ContentActionSupport.hasLanguageAccess(model) &&  // Ensure the user has access in the current language.
+                    ContentActionSupport.isActionAvailable(model, createAction, createProviderCapability, true);  // Ensure the action is available to the user.
 
+            return !!canExecute;
+        },
+        
+        _checkAvailability: function (availableContentTypes) {
+            if (availableContentTypes.length === 0) {
+                return false;
+            }
+
+            var deferred = new Deferred();
+
+            var getRequests = array.map(availableContentTypes, lang.hitch(this, function (contentTypeID) {
+                return this.contentTypeStore.get(contentTypeID);
+            }));
+
+            when(all(getRequests), lang.hitch(this, function (contentTypes) {
+                var isAvailable = array.some(contentTypes, lang.hitch(this, function (contentType) {
+                    return TypeDescriptorManager.isBaseTypeIdentifier(contentType.typeIdentifier, this.creatingTypeIdentifier);
+                }));
+
+                deferred.resolve(isAvailable);
+            }));
+
+            return deferred;
+        },
+
+        _execute: function () {
             var currentContent = this.model;
 
             if (!currentContent) {
@@ -199,12 +169,20 @@ function (
             when(this._getAvailableContentTypes(currentContent.contentLink), lang.hitch(this, function (availableContentTypes) {
                 var contentTypeCanBeChildToCurrentContext = this._isContentTypeAllowedAsChildToCurrentContext(availableContentTypes, currentContent);
 
-                // Show location selector dialog when current context is a valid location to store the one we are about to create.
+                // Switch to create content view.
                 if (contentTypeCanBeChildToCurrentContext) {
                     this._switchView(currentContent);
                     this.emit('onExecuted', { command: this });
                 }
             }));
+        },
+
+        _getContentType: function (model) {
+            if (!model) {
+                return null;
+            }
+
+            return this.contentTypeStore.get(model.contentTypeID);
         },
 
         _getAvailableContentTypes: function (contentLink) {
@@ -227,13 +205,37 @@ function (
             return anyAvailableContentTypeOfCorrectType && currentContentIsAValidContainerType;
         },
 
-        _switchView: function (content) {
-            // summary:
-            //    Change view to Create Content with parent content
-            //
-            // tags:
-            //    protected
+        _onModelChange: function () {
+            if (this.model && this.model instanceof Array) {
+                if (this.model.length === 1) {
+                    this.model = this.model[0];
+                } else { // model is an array that has more than one item, or empty.
+                    this.model = null;
+                }
+            }
 
+            this.set("canExecute", this._canExecute());
+
+            var model = this.model;
+
+            if (!model) {
+                this.set("isAvailable", false);
+                return;
+            }
+
+            when(this._getContentType(model), lang.hitch(this, function (contentType) {
+                if (!contentType) {
+                    this.set("isAvailable", false);
+                    return;
+                }
+
+                when(this._checkAvailability(contentType.availableContentTypes), lang.hitch(this, function (isAvailable) {
+                    this.set("isAvailable", isAvailable);
+                }));
+            }));
+        },
+
+        _switchView: function (content) {
             topic.publish("/epi/shell/action/changeview", "epi-cms/contentediting/CreateContent", null, {
                 requestedType: this.creatingTypeIdentifier,
                 parent: content,
@@ -248,5 +250,4 @@ function (
             });
         }
     });
-
 });

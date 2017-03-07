@@ -77,6 +77,10 @@ Above property will look familiar if you have used standard Episerver categories
 ![ScreenShot](/docs/category-selector.jpg)
 ![ScreenShot](/docs/category-selector-dialog.jpg)
 
+There is a context menu in the selector where you quickly can create and auto publish a new category and automatically get back to the selector with the new category selected:
+
+![ScreenShot](/docs/category-selector-dialog-create-new.jpg)
+
 If you prefer to use the native content reference list editor for your categories you can skip the CategoriesAttribute:
 
 	public virtual IList<ContentReference> Categories { get; set; }
@@ -159,6 +163,12 @@ You can use IContentInCategoryLocator to find content in certain categories:
         IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
 
         IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
+		
+        IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
+
+        IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
+
+        IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
     }
 
 ## Routing

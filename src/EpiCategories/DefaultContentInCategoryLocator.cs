@@ -19,41 +19,6 @@ namespace Geta.EpiCategories
             LanguageResolver = languageResolver;
         }
 
-        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent
-        {
-            return GetDescendents<T>(contentLink, categories, CreateDefaultListLoaderOptions());
-        }
-
-        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent
-        {
-            var loaderOptions = new LoaderOptions { LanguageLoaderOption.Specific(culture) };
-            return GetDescendents<T>(contentLink, categories, loaderOptions);
-        }
-
-        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent
-        {
-            if (categories != null && categories.Any())
-            {
-                var referenceContentLinks = new List<ContentReference>();
-
-                foreach (var category in categories)
-                {
-                    var referencesToContent = ContentRepository.GetReferencesToContent(category, false);
-                    referenceContentLinks.AddRange(referencesToContent.Select(x => x.OwnerID));
-                }
-
-                return ContentRepository
-                    .GetItems(referenceContentLinks.Distinct(), loaderOptions)
-                    .OfType<T>();
-            }
-
-            var contentLinks = ContentRepository.GetDescendents(contentLink);
-
-            return ContentRepository
-                .GetItems(contentLinks, loaderOptions)
-                .OfType<T>();
-        }
-
         public virtual IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent
         {
             return GetChildren<T>(contentLink, categories, CreateDefaultListLoaderOptions());
@@ -70,6 +35,58 @@ namespace Geta.EpiCategories
             return ContentRepository
                 .GetChildren<T>(contentLink, loaderOptions)
                 .Where(x => x.Categories.MemberOfAny(categories));
+        }
+
+        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent
+        {
+            return GetDescendents<T>(contentLink, categories, CreateDefaultListLoaderOptions());
+        }
+
+        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent
+        {
+            var loaderOptions = new LoaderOptions { LanguageLoaderOption.Specific(culture) };
+            return GetDescendents<T>(contentLink, categories, loaderOptions);
+        }
+
+        public virtual IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent
+        {
+            var contentLinks = ContentRepository.GetDescendents(contentLink);
+
+            return ContentRepository
+                .GetItems(contentLinks, loaderOptions)
+                .OfType<T>()
+                .Where(x => x.Categories.MemberOfAny(categories));
+        }
+
+        public virtual IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent
+        {
+            return GetReferencesToCategories<T>(categories, CreateDefaultListLoaderOptions());
+        }
+
+        public virtual IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent
+        {
+            var loaderOptions = new LoaderOptions { LanguageLoaderOption.Specific(culture) };
+            return GetReferencesToCategories<T>(categories, loaderOptions);
+        }
+
+        public virtual IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent
+        {
+            if (categories != null && categories.Any())
+            {
+                var referenceContentLinks = new List<ContentReference>();
+
+                foreach (var category in categories)
+                {
+                    var referencesToContent = ContentRepository.GetReferencesToContent(category, false);
+                    referenceContentLinks.AddRange(referencesToContent.Select(x => x.OwnerID));
+                }
+
+                return ContentRepository
+                    .GetItems(referenceContentLinks.Distinct(), loaderOptions)
+                    .OfType<T>();
+            }
+
+            return Enumerable.Empty<T>();
         }
 
         protected virtual LoaderOptions CreateDefaultListLoaderOptions()
