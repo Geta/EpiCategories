@@ -83,6 +83,7 @@ There is a context menu in the selector where you quickly can create and auto pu
 
 If you prefer to use the native content reference list editor for your categories you can skip the CategoriesAttribute:
 
+	[AllowedTypes(typeof(CategoryData))]
 	public virtual IList<ContentReference> Categories { get; set; }
 
 ![ScreenShot](/docs/content-reference-list.jpg)
