@@ -190,7 +190,7 @@ Implement this on your content type and it will be possible to route category UR
 	{
 	}
 
-You can also have multiple category URL segments separated with the configured category separator: /articles/sports__entertainment/.
+You can also have multiple category URL segments separated with the configured category separator: /articles/entertainment__sports/.
 
 	public ActionResult Index(ArticleListPage currentPage, IList<CategoryData> currentCategories) // currentCategories will now contain "Sports" and "Entertainment" categories.
 	{
