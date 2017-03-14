@@ -5,9 +5,10 @@ An alternative to Episerver's default category functionality, where categories a
 It has the following advantages over default functionality:
 
 1. Localization (no more language XML files)
-2. Access rights support (some editors should perhaps have limited category access)
-3. Shared and site specific categories in multisite solutions
-4. Partial routing of category URL segments
+2. More user friendly edit UI
+3. Access rights support (some editors should perhaps have limited category access)
+4. Shared and site specific categories in multisite solutions
+5. Partial routing of category URL segments
 
 ## How to install
 Install NuGet package from Episerver NuGet Feed:
