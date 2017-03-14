@@ -5,6 +5,7 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
+using EPiServer.Web.Routing.Internal;
 using EPiServer.Web.Routing.Segments;
 using Geta.EpiCategories.Routing;
 
@@ -12,7 +13,17 @@ namespace Geta.EpiCategories.Extensions
 {
     public static class RouteCollectionExtensions
     {
-        public static IContentRoute MapCategoryRoute(this RouteCollection routes, string name, string url, object defaults, Func<SiteDefinition, ContentReference> contentRootResolver)
+        public static IContentRoute MapSiteCategoryRoute(this RouteCollection routes, string name, string url, object defaults, Func<SiteDefinition, ContentReference> contentRootResolver)
+        {
+            return routes.MapCategoryRoute("Media_Site", name, url, defaults, contentRootResolver);
+        }
+
+        public static IContentRoute MapGlobalCategoryRoute(this RouteCollection routes, string name, string url, object defaults, Func<SiteDefinition, ContentReference> contentRootResolver)
+        {
+            return routes.MapCategoryRoute("Media_Global", name, url, defaults, contentRootResolver);
+        }
+
+        private static IContentRoute MapCategoryRoute(this RouteCollection routes, string insertBeforeRouteName, string name, string url, object defaults, Func<SiteDefinition, ContentReference> contentRootResolver)
         {
             var basePathResolver = ServiceLocator.Current.GetInstance<IBasePathResolver>();
             var urlSegmentRouter = ServiceLocator.Current.GetInstance<IUrlSegmentRouter>();
@@ -28,7 +39,15 @@ namespace Geta.EpiCategories.Extensions
                 Constraints = new { node = new ContentTypeConstraint<CategoryData>(contentLoader) }
             };
 
-            return routes.MapContentRoute(name, url, defaults, contentRouteParameters);
+            RouteBase mediaRoute = RouteTable.Routes[insertBeforeRouteName];
+            int insertIndex = mediaRoute != null
+                ? RouteTable.Routes.IndexOf(mediaRoute)
+                : RouteTable.Routes.Count;
+
+            var route = routes.MapContentRoute(name, url, defaults, contentRouteParameters) as DefaultContentRoute;
+            routes.Remove(route);
+            routes.Insert(insertIndex, route);
+            return route;
         }
     }
 }

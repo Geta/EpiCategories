@@ -1,4 +1,6 @@
-﻿using System.Web.Routing;
+﻿using System.Linq;
+using System.Web.Mvc;
+using System.Web.Routing;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Data;
@@ -9,6 +11,7 @@ using EPiServer.Web;
 using EPiServer.Web.Routing;
 using Geta.EpiCategories.Extensions;
 using Geta.EpiCategories.Routing;
+using EPiServer.Globalization;
 
 namespace Geta.EpiCategories
 {
@@ -16,23 +19,38 @@ namespace Geta.EpiCategories
     [ModuleDependency(typeof(DataInitialization))]
     public class CategoryInitializationModule : IConfigurableModule
     {
+        private bool _isInitialized;
+
         public void Initialize(InitializationEngine context)
         {
-            var contentEvents = context.Locate.ContentEvents();
-            contentEvents.CreatingContent += OnCreatingContent;
+            if (_isInitialized)
+            {
+                return;
+            }
 
+            ValueProviderFactories.Factories.Add(new CategoryDataValueProviderFactory());
+            ValueProviderFactories.Factories.Add(new CategoryDataListValueProviderFactory());
+
+            var locator = context.Locate.Advanced;
+            var contentEvents = context.Locate.ContentEvents();
+
+            contentEvents.CreatingContent += OnCreatingContent;
             Global.RoutesRegistered += OnEpiserverRoutesRegistered;
-            RouteTable.Routes.RegisterPartialRouter(new CategoryPartialRouter(context.Locate.ContentLoader(), context.Locate.Advanced.GetInstance<ICategoryContentLoader>()));
+            RouteTable.Routes.RegisterPartialRouter(locator.GetInstance<CategoryPartialRouter>());
+
+            _isInitialized = true;
         }
 
         private void OnEpiserverRoutesRegistered(object sender, RouteRegistrationEventArgs routeRegistrationEventArgs)
         {
-            RouteTable.Routes.MapCategoryRoute("sharedcategories", "{language}/{node}/{partial}/{action}", new {action = "index"}, sd => sd.GlobalAssetsRoot);
-            RouteTable.Routes.MapCategoryRoute("sitecategories", "{language}/{node}/{partial}/{action}", new { action = "index" }, sd => sd.SiteAssetsRoot);
+            RouteTable.Routes.MapSiteCategoryRoute("sitecategories", "{language}/{node}/{partial}/{action}", new { action = "index" }, sd => sd.SiteAssetsRoot);
+            RouteTable.Routes.MapGlobalCategoryRoute("sharedcategories", "{language}/{node}/{partial}/{action}", new {action = "index"}, sd => sd.GlobalAssetsRoot);
         }
 
         public void Uninitialize(InitializationEngine context)
         {
+            var contentEvents = ServiceLocator.Current.GetInstance<IContentEvents>();
+            contentEvents.CreatingContent -= OnCreatingContent;
         }
 
         public void ConfigureContainer(ServiceConfigurationContext context)

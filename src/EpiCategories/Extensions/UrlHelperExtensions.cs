@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using System.Web.Routing;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
@@ -18,6 +19,12 @@ namespace Geta.EpiCategories.Extensions
         {
             var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
             return urlResolver.GetCategoryRoutedUrl(contentLink, categoryLink);
+        }
+
+        public static string CategoryRoutedContentUrl(this UrlHelper url, ContentReference contentLink, IEnumerable<ContentReference> categoryLinks)
+        {
+            var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            return urlResolver.GetCategoryRoutedUrl(contentLink, categoryLinks);
         }
     }
 }

@@ -226,6 +226,10 @@
     <Compile Include="ICategoryRoutableContent.cs" />
     <Compile Include="IContentInCategoryLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routing\CategoryDataListValueProvider.cs" />
+    <Compile Include="Routing\CategoryDataValueProvider.cs" />
+    <Compile Include="Routing\CategoryDataListValueProviderFactory.cs" />
+    <Compile Include="Routing\CategoryDataValueProviderFactory.cs" />
     <Compile Include="Routing\CategoryPartialRouter.cs" />
     <Compile Include="Routing\CategoryRoutingConstants.cs" />
     <Compile Include="Routing\ContentTypeConstraint.cs" />

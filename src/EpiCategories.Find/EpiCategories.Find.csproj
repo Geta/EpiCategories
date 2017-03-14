@@ -240,6 +240,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentCount.cs" />
+    <Compile Include="Extensions\IHasFacetResultsExtensions.cs" />
+    <Compile Include="FindCategoryInitializationModule.cs" />
+    <Compile Include="Extensions\ICategorizableContentExtensions.cs" />
     <Compile Include="FindCategoriesSearchProvider.cs" />
     <Compile Include="Extensions\ITypeSearchExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
