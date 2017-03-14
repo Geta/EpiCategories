@@ -13,6 +13,10 @@ It has the following advantages over default functionality:
 Install NuGet package from Episerver NuGet Feed:
 
 	Install-Package Geta.EpiCategories
+
+### New features in version 1.1.0
+
+1. Added support for multiple categories in partial router. See [Routing](#routing) section.
   
 ## How to use
 Start by creating a category content type that inherits from CategoryData. You can have multiple.
@@ -185,8 +189,21 @@ Implement this on your content type and it will be possible to route category UR
 	public ActionResult Index(ArticleListPage currentPage, CategoryData currentCategory)
 	{
 	}
-	
-There is a UrlHelper and UrlResolver extension method included to get content URL with category segment added:
 
-	@Url.CategoryRoutedContentUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink)
-	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink)
+You can also have multiple category URL segments separated with the configured category separator: /articles/sports__entertainment/.
+
+	public ActionResult Index(ArticleListPage currentPage, IList<CategoryData> currentCategories) // currentCategories will now contain "Sports" and "Entertainment" categories.
+	{
+	}
+
+Default category separator is "__" and you can change it by adding an appSetting in web.config:
+
+	<add key="GetaEpiCategories:CategorySeparator" value="__" />
+	
+There is a couple of UrlHelper and UrlResolver extension methods included to get content URL with category segment added:
+
+	@Url.CategoryRoutedContentUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink) // Single category
+	@Url.CategoryRoutedContentUrl(/*ContentReference*/ contentLink, /*IEnumerable<ContentReference>*/ categoryContentLinks) // Multiple categories
+
+	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink) // Single category
+	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*IEnumerable<ContentReference>*/ categoryContentLinks) // Multiple categories
