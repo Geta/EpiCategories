@@ -18,6 +18,11 @@ Install NuGet package from Episerver NuGet Feed:
 ### New features in version 1.1.0
 
 1. Added support for multiple categories in partial router. See [Routing](#routing) section.
+
+### New features in version 1.0.5
+
+1. Added ability to quickly create and auto publish new categories from selector dialog.
+2. Added new method in IContentInCategoryLocator: GetReferencesToCategories. This method finds all content with references to supplied categories.
   
 ## How to use
 Start by creating a category content type that inherits from CategoryData. You can have multiple.
