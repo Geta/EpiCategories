@@ -15,6 +15,10 @@ Install NuGet package from Episerver NuGet Feed:
 
 	Install-Package Geta.EpiCategories
 
+### Changes in version 1.1.1
+
+1. Fixed issue #1: Add-On breaks Media path.
+
 ### New features in version 1.1.0
 
 1. Added support for multiple categories in partial router. See [Routing](#routing) section.
