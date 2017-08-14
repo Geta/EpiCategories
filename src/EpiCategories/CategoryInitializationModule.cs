@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using System.Web.Routing;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Core;
 using EPiServer.Data;
 using EPiServer.Framework;
@@ -11,7 +8,8 @@ using EPiServer.Web;
 using EPiServer.Web.Routing;
 using Geta.EpiCategories.Extensions;
 using Geta.EpiCategories.Routing;
-using EPiServer.Globalization;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Geta.EpiCategories
 {
@@ -62,6 +60,7 @@ namespace Geta.EpiCategories
         {
             services.AddSingleton<ICategoryContentLoader, DefaultCategoryContentLoader>();
             services.AddSingleton<IContentInCategoryLocator, DefaultContentInCategoryLocator>();
+            services.AddScoped<ICategoryRouteHelper, DefaultCategoryRouteHelper>();
         }
 
         private void OnCreatingContent(object sender, ContentEventArgs args)

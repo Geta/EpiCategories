@@ -213,6 +213,7 @@
     <Compile Include="CategoryUIHint.cs" />
     <Compile Include="DataAnnotations\CategoriesAttribute.cs" />
     <Compile Include="DefaultCategoryContentLoader.cs" />
+    <Compile Include="DefaultCategoryRouteHelper.cs" />
     <Compile Include="DefaultContentInCategoryLocator.cs" />
     <Compile Include="EditorDescriptors\CategoryEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\HideCategoryEditorDescriptor.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="ICategorizableContent.cs" />
     <Compile Include="ICategoryContentLoader.cs" />
     <Compile Include="ICategoryRoutableContent.cs" />
+    <Compile Include="ICategoryRouteHelper.cs" />
     <Compile Include="IContentInCategoryLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\CategoryDataListValueProvider.cs" />

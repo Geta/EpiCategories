@@ -23,7 +23,7 @@ namespace Geta.EpiCategories.Extensions
             return routes.MapCategoryRoute("Media_Global", name, url, defaults, contentRootResolver);
         }
 
-        private static IContentRoute MapCategoryRoute(this RouteCollection routes, string insertBeforeRouteName, string name, string url, object defaults, Func<SiteDefinition, ContentReference> contentRootResolver)
+        private static IContentRoute MapCategoryRoute(this RouteCollection routes, string insertAfterRouteName, string name, string url, object defaults, Func<SiteDefinition, ContentReference> contentRootResolver)
         {
             var basePathResolver = ServiceLocator.Current.GetInstance<IBasePathResolver>();
             var urlSegmentRouter = ServiceLocator.Current.GetInstance<IUrlSegmentRouter>();
@@ -39,9 +39,9 @@ namespace Geta.EpiCategories.Extensions
                 Constraints = new { node = new ContentTypeConstraint<CategoryData>(contentLoader) }
             };
 
-            RouteBase mediaRoute = RouteTable.Routes[insertBeforeRouteName];
+            RouteBase mediaRoute = RouteTable.Routes[insertAfterRouteName];
             int insertIndex = mediaRoute != null
-                ? RouteTable.Routes.IndexOf(mediaRoute)
+                ? RouteTable.Routes.IndexOf(mediaRoute) + 1
                 : RouteTable.Routes.Count;
 
             var route = routes.MapContentRoute(name, url, defaults, contentRouteParameters) as DefaultContentRoute;
