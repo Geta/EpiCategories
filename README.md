@@ -17,7 +17,7 @@ Install NuGet package from Episerver NuGet Feed:
 
 ### Changes in version 1.1.1
 
-1. Fixed issue #1: Add-On breaks Media path.
+1. Fixed issue [#1 Add-On breaks Media path](https://github.com/Geta/EpiCategories/issues/1).
 
 ### New features in version 1.1.0
 
