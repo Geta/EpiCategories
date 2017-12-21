@@ -13,13 +13,13 @@
         <copyright></copyright>
         <tags>Episerver, Geta</tags>
         <dependencies>
-            <dependency id="EPiServer.Framework" version="10.0.1" />
-            <dependency id="EPiServer.CMS.Core" version="10.0.1" />
-            <dependency id="EPiServer.CMS.UI.Core" version="10.0.2" />
+            <dependency id="EPiServer.Framework" version="11.1.0" />
+            <dependency id="EPiServer.CMS.Core" version="11.1.0" />
+            <dependency id="EPiServer.CMS.UI.Core" version="11.1.0" />
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\Geta.EpiCategories.dll" target="lib" />
+        <file src="bin\Geta.EpiCategories.dll" target="lib\net461" />
         <file src="lang\*.*" target="content\lang" />
         <file src="modules\**\*.*" target="content\modules" />
     </files>
