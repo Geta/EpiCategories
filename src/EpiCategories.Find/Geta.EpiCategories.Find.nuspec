@@ -13,10 +13,10 @@
         <copyright></copyright>
         <tags>Episerver, Geta</tags>
         <dependencies>
-            <dependency id="Geta.EpiCategories" version="1.1.2" />
+            <dependency id="Geta.EpiCategories" version="1.2.0" />
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\Geta.EpiCategories.Find.dll" target="lib\net461" />        
+        <file src="bin\Geta.EpiCategories.Find.dll" target="lib\net461" />
     </files>
 </package>
