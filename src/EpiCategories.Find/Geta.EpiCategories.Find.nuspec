@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>Geta.EpiCategories.Find</id>
+        <version>$version$</version>
+        <title>Geta.EpiCategories.Find</title>
+        <authors>Geta</authors>
+        <owners>Geta</owners>
+        <projectUrl>https://github.com/Geta/EpiCategories</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Episerver cms search provider and extensions for implemtations using Episerver Find.</description>
+        <releaseNotes></releaseNotes>
+        <copyright></copyright>
+        <tags>Episerver, Geta</tags>
+        <dependencies>
+            <dependency id="Geta.EpiCategories" version="1.1.2" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Geta.EpiCategories.Find.dll" target="lib\net461" />        
+    </files>
+</package>

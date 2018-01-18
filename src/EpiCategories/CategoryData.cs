@@ -27,7 +27,7 @@ namespace Geta.EpiCategories
         }
 
         [Display(Order = 20)]
-        [UIHint(UIHint.LongString)]
+        [UIHint(UIHint.Textarea)]
         [CultureSpecific]
         public virtual string Description { get; set; }
 
