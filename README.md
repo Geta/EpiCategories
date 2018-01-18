@@ -24,8 +24,8 @@ or:
 	Install-Package Geta.EpiCategories.Find
 
 ### Changes in version 1.2.0
-1. Updated to Episerver 11 (thanks @nolmsted)
-2. Moved CategoriesSearchProvider into it's own project to follow Episerver's decoupling of search. (thanks @nolmsted)
+1. Updated to Episerver 11 (thanks [nolmsted](https://github.com/nolmsted))
+2. Moved CategoriesSearchProvider into it's own project to follow Episerver's decoupling of search. (thanks [nolmsted](https://github.com/nolmsted))
 
 ### Changes in version 1.1.1
 
