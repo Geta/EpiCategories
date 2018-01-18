@@ -14,6 +14,18 @@ It has the following advantages over default functionality:
 Install NuGet package from Episerver NuGet Feed:
 
 	Install-Package Geta.EpiCategories
+	
+If you want to install search provider you can choose from Geta.EpiCategories.Find package or Geta.EpiCategories.Search depending on if you have Episerver Find installed in your project or not:
+
+	Install-Package Geta.EpiCategories.Search
+	
+or:
+
+	Install-Package Geta.EpiCategories.Find
+
+### Changes in version 1.2.0
+1. Updated to Episerver 11 (thanks @nolmsted)
+2. Moved CategoriesSearchProvider into it's own project to follow Episerver's decoupling of search. (thanks @nolmsted)
 
 ### Changes in version 1.1.1
 
