@@ -261,6 +261,10 @@
     </Content>
     <Content Include="modules\_protected\geta-epicategories\module.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config.install.xdt" />
+    <Content Include="web.config.uninstall.xdt" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -8,7 +8,7 @@
         <owners>Geta</owners>
         <projectUrl>https://github.com/Geta/EpiCategories</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Episerver cms search provider for implementations using Episerver.Search</description>
+        <description>Episerver cms search provider for projects using Episerver.Search</description>
         <releaseNotes></releaseNotes>
         <copyright></copyright>
         <tags>Episerver, Geta</tags>
