@@ -1,15 +1,15 @@
 # EpiCategories
+
+## Description
 An alternative to Episerver's default category functionality, where categories are instead stored as localizable IContent.
 
-## Why should you use it?
-It has the following advantages over default functionality:
-
-1. Localization (no more language XML files)
-2. More user friendly edit UI
-3. Access rights support (some editors should perhaps have limited category access)
-4. Shared and site specific categories in multisite solutions
-5. Partial routing of category URL segments
-
+## Features
+* Localization (no more language XML files)
+* More user friendly edit UI
+* Access rights support (some editors should perhaps have limited category access)
+* Shared and site specific categories in multisite solutions
+* Partial routing of category URL segments
+  
 ## How to install
 Install NuGet package from Episerver NuGet Feed:
 
@@ -23,22 +23,6 @@ or:
 
 	Install-Package Geta.EpiCategories.Find
 
-### Changes in version 1.2.0
-1. Updated to Episerver 11 (thanks [nolmsted](https://github.com/nolmsted))
-2. Moved CategoriesSearchProvider into it's own project to follow Episerver's decoupling of search. (thanks [nolmsted](https://github.com/nolmsted))
-
-### Changes in version 1.1.1
-
-1. Fixed issue [#1 Add-On breaks Media path](https://github.com/Geta/EpiCategories/issues/1).
-
-### New features in version 1.1.0
-
-1. Added support for multiple categories in partial router. See [Routing](#routing) section.
-
-### New features in version 1.0.5
-
-1. Added ability to quickly create and auto publish new categories from selector dialog.
-2. Added new method in IContentInCategoryLocator: GetReferencesToCategories. This method finds all content with references to supplied categories.
   
 ## How to use
 Start by creating a category content type that inherits from CategoryData. You can have multiple.
@@ -229,3 +213,24 @@ There is a couple of UrlHelper and UrlResolver extension methods included to get
 
 	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink) // Single category
 	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*IEnumerable<ContentReference>*/ categoryContentLinks) // Multiple categories
+
+## Package maintainer
+https://github.com/MattisOlsson
+
+## Changelog
+### Changes in version 1.2.0
+1. Updated to Episerver 11 (thanks [nolmsted](https://github.com/nolmsted))
+2. Moved CategoriesSearchProvider into it's own project to follow Episerver's decoupling of search. (thanks [nolmsted](https://github.com/nolmsted))
+
+### Changes in version 1.1.1
+
+1. Fixed issue [#1 Add-On breaks Media path](https://github.com/Geta/EpiCategories/issues/1).
+
+### New features in version 1.1.0
+
+1. Added support for multiple categories in partial router. See [Routing](#routing) section.
+
+### New features in version 1.0.5
+
+1. Added ability to quickly create and auto publish new categories from selector dialog.
+2. Added new method in IContentInCategoryLocator: GetReferencesToCategories. This method finds all content with references to supplied categories.
