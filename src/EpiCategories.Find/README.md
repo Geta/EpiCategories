@@ -19,7 +19,7 @@ Install NuGet package from Episerver NuGet Feed:
 	ITypeSearch<T> FilterHitsByCategories<T>(this ITypeSearch<T> search, IEnumerable<ContentReference> categories) where T : ICategorizableContent
 	ITypeSearch<T> ContentCategoriesFacet<T>(this ITypeSearch<T> request) where T : ICategorizableContent
 
-### IHasFacetResults extension methods:
+### IHasFacetResults<T> extension methods:
 
 	IEnumerable<ContentCount> ContentCategoriesFacet<T>(this IHasFacetResults<T> result) where T : ICategorizableContent
 
