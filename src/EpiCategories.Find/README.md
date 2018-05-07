@@ -1,7 +1,7 @@
 # EpiCategories.Find
 
 ## Description
-CMS category search provider and extensions methods for projects EpiCategories and Episerver Find.
+CMS category search provider and extensions methods for projects with EpiCategories and Episerver Find.
 
 ## Features
 * CMS search provider powered by Episerver Find.
