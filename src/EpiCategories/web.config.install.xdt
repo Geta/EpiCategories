@@ -2,7 +2,7 @@
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
     <episerver.shell xdt:Transform="InsertIfMissing">
         <protectedModules xdt:Transform="InsertIfMissing">
-            <add name="geta-epicategories" xdt:Transform="Insert" xdt:Locator="Match(name)" />
+            <add name="geta-epicategories" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)" />
         </protectedModules>
     </episerver.shell>
 </configuration>
