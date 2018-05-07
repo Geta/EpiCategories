@@ -15,6 +15,7 @@ Install NuGet package from Episerver NuGet Feed:
 
 	Install-Package Geta.EpiCategories
 	
+## CMS search providers (Episerver Find or Episerver Search)
 If you want to install a CMS search provider you can choose from Geta.EpiCategories.Find or Geta.EpiCategories.Search package depending on if you have Episerver Find installed in your project or not:
 
 	Install-Package Geta.EpiCategories.Search
