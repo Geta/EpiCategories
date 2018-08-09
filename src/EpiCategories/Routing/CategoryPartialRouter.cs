@@ -126,7 +126,7 @@ namespace Geta.EpiCategories.Routing
                 return new PartialRouteData
                 {
                     BasePathRoot = content.ContentLink,
-                    PartialVirtualPath = $"{string.Join(CategoryPartialRouter.CategorySeparator, categorySegments)}/"
+                    PartialVirtualPath = $"{string.Join(CategorySeparator, categorySegments)}/"
                 };
             }
 

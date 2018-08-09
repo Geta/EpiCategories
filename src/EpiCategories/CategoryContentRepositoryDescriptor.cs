@@ -24,7 +24,7 @@ namespace Geta.EpiCategories
 
         public override string Key => RepositoryKey;
 
-        public override string Name => LocalizationService.Current.GetString("/admin/categories/heading");
+        public override string Name => LocalizationService.Current.GetString("/getacategories/treecomponent/title", "Categories");
 
         public virtual string CreatingTypeIdentifier => typeof (CategoryData).FullName.ToLowerInvariant();
 

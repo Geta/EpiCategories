@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Web.Mvc;
+using EPiServer;
 using EPiServer.Web.Routing;
 
 namespace Geta.EpiCategories.Routing

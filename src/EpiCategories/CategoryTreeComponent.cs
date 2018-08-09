@@ -8,6 +8,7 @@ namespace Geta.EpiCategories
     public class CategoryTreeComponent : ComponentDefinitionBase
     {
         private string _title;
+        private string _description;
 
         public CategoryTreeComponent() : this(ServiceLocator.Current.GetInstance<CategorySettings>())
         {
@@ -15,15 +16,14 @@ namespace Geta.EpiCategories
 
         public CategoryTreeComponent(CategorySettings categorySettings) : base("epi-cms/component/MainNavigationComponent")
         {
-            LanguagePath = "/episerver/cms/components/pagetree";
-
-            PlugInAreas = new[]
-            {
-                PlugInArea.AssetsDefaultGroup,
-                PlugInArea.NavigationDefaultGroup
-            };
+            LanguagePath = "/getacategories/treecomponent";
 
             Categories = new[] { "content" };
+            PlugInAreas = new []
+            {
+                PlugInArea.AssetsDefaultGroup
+            };
+            
             SortOrder = 105;
             Settings.Add(new Setting("repositoryKey", CategoryContentRepositoryDescriptor.RepositoryKey));
             Settings.Add(new Setting("categorySettings", categorySettings));
@@ -33,16 +33,33 @@ namespace Geta.EpiCategories
         {
             get
             {
-                string title = LocalizationService.GetString("/admin/categories/heading");
+                if (!string.IsNullOrWhiteSpace(_title))
+                {
+                    return _title;
+                }
 
-                if (string.IsNullOrEmpty(title) == false)
-                    return title;
-
-                return _title;
+                return LocalizationService.GetString($"{LanguagePath}/title", "Categories");
             }
             set
             {
                 _title = value;
+            }
+        }
+
+        public override string Description
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(_description))
+                {
+                    return _description;
+                }
+
+                return LocalizationService.GetString($"{LanguagePath}/description", "Category management");
+            }
+            set
+            {
+                _description = value;
             }
         }
     }

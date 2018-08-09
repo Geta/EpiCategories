@@ -26,6 +26,12 @@
                 </findcategories>
             </searchprovider>
         </cms>
+        <getacategories>
+            <treecomponent>
+                <title>Categories</title>
+                <description>Category management</description>
+            </treecomponent>
+        </getacategories>
     </language>
     <language name="Swedish" id="sv">
         <contenttypes>
@@ -53,6 +59,12 @@
                 </findcategories>
             </searchprovider>
         </cms>
+        <getacategories>
+            <treecomponent>
+                <title>Kategorier</title>
+                <description>Hantera kategorier</description>
+            </treecomponent>
+        </getacategories>
     </language>
     <language name="Norwegian" id="no">
         <contenttypes>
@@ -80,5 +92,11 @@
                 </findcategories>
             </searchprovider>
         </cms>
+        <getacategories>
+            <treecomponent>
+                <title>Kategorier</title>
+                <description>Håndtere kategorier</description>
+            </treecomponent>
+        </getacategories>
     </language>
 </languages>
