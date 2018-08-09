@@ -20,8 +20,8 @@
     </metadata>
     <files>
         <file src="bin\Geta.EpiCategories.dll" target="lib\net461" />
+        <file src="bin\Geta.EpiCategories.zip" target="content\modules\_protected\geta-epicategories\geta-epicategories.zip" />
         <file src="lang\*.*" target="content\lang" />
-        <file src="modules\**\*.*" target="content\modules" />
         <file src="web.config.install.xdt" target="content" />
         <file src="web.config.uninstall.xdt" target="content" />
     </files>

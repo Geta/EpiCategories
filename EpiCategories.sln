@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpiCategories.Find", "src\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpiCategories.Search", "src\EpiCategories.Search\EpiCategories.Search.csproj", "{782F8E87-E09A-4C3C-BF73-79AA51DD7FC2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{435F9D80-FC5A-48AC-B1DF-35D9BAD5F8FB}"
+	ProjectSection(SolutionItems) = preProject
+		build\BuildEpiModule.proj = build\BuildEpiModule.proj
+		build\MSBuild.Community.Tasks.dll = build\MSBuild.Community.Tasks.dll
+		build\MSBuild.Community.Tasks.targets = build\MSBuild.Community.Tasks.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

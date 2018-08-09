@@ -204,21 +204,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="lang\geta.epicategories.xml" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategoryContentContextMenuCommandProvider.js" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategoryForestStoreModel.js" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTree.js" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelector.js" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\CategorySelectorDialog.js" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\command\CreateCategoryFromSelector.js" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\templates\CategorySelectionTreeNode.html" />
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\widget\templates\CategorySelector.html" />
+    <Content Include="ClientResources\Scripts\widget\CategoryContentContextMenuCommandProvider.js" />
+    <Content Include="ClientResources\Scripts\widget\CategoryForestStoreModel.js" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelectionTree.js" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelectionTreeNode.js" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelector.js" />
+    <Content Include="ClientResources\Scripts\widget\CategorySelectorDialog.js" />
+    <Content Include="ClientResources\Scripts\widget\command\CreateCategoryFromSelector.js" />
+    <Content Include="ClientResources\Scripts\widget\templates\CategorySelectionTreeNode.html" />
+    <Content Include="ClientResources\Scripts\widget\templates\CategorySelector.html" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="modules\_protected\geta-epicategories\ClientResources\Scripts\component\CategoryNavigationTree.js" />
+    <Content Include="ClientResources\Scripts\component\CategoryNavigationTree.js" />
     <Content Include="Web.config" />
-    <Content Include="Geta.EpiCategories.nuspec" />
+    <Content Include="Geta.EpiCategories.nuspec">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryInitializationModule.cs" />
@@ -256,10 +258,9 @@
     <Compile Include="UIDescriptors\CategoryRootUIDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AfterBuild.proj">
+    <Content Include="module.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="modules\_protected\geta-epicategories\module.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config.install.xdt" />
@@ -297,5 +298,5 @@
     <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-  <Import Project=".\AfterBuild.proj" />
+  <Import Project="$(SolutionDir)build\BuildEpiModule.proj" />
 </Project>

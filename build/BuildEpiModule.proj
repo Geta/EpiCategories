@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="CreateModuleZipFile" ToolsVersion="4.0">
+    <PropertyGroup>
+        <CommunityTasksDir Condition="$(CommunityTasksDir) == '' Or $(CommunityTasksDir) == '*Undefined*'">$(SolutionDir)</CommunityTasksDir>
+        <MSBuildCommunityTasksPath>.</MSBuildCommunityTasksPath>
+    </PropertyGroup>
+    
+    <Import Project="$(CommunityTasksDir)build\MSBuild.Community.Tasks.Targets" />
+
+    <UsingTask TaskName="GetVersion"
+           TaskFactory="CodeTaskFactory"
+           AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+
+        <ParameterGroup>
+            <AssemblyPath ParameterType="System.String" Required="true" />
+            <Version ParameterType="System.String" Output="true" />
+        </ParameterGroup>
+
+        <Task>
+            <Using Namespace="System" />
+            <Using Namespace="System.Diagnostics" />
+            <Code Type="Fragment" Language="cs">
+                <![CDATA[
+                    Log.LogMessage("Getting version details of assembly at: " + this.AssemblyPath, MessageImportance.High);
+
+                    this.Version = FileVersionInfo.GetVersionInfo(this.AssemblyPath).FileVersion;
+                ]]>
+            </Code>
+        </Task>
+    </UsingTask>
+    
+    <UsingTask TaskName="ZipDirectory" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+        <ParameterGroup>
+            <InputPath ParameterType="System.String" Required="true" />
+            <OutputFileName ParameterType="System.String" Required="true" />
+            <OverwriteExistingFile ParameterType="System.Boolean" Required="false" />
+        </ParameterGroup>
+        <Task>
+            <Reference Include=" System.IO.Compression.FileSystem" />
+            <Using Namespace="System.IO" />
+            <Using Namespace="System.IO.Compression" />
+            <Code Type="Fragment" Language="cs">
+                <![CDATA[        
+                  if(this.OverwriteExistingFile) {
+                    File.Delete(this.OutputFileName);
+                  }
+                  ZipFile.CreateFromDirectory(this.InputPath, this.OutputFileName);
+                ]]>
+            </Code>
+        </Task>
+    </UsingTask>
+
+    <PropertyGroup>
+        <ProjectDir Condition="$(ProjectDir) == ''">$(MSBuildProjectDirectory)\..\</ProjectDir>
+        <TmpOutDir>$(ProjectDir)\tmp\</TmpOutDir>
+        <Version></Version>
+    </PropertyGroup>
+    
+    <Target Name="CreateModuleZipFile" AfterTargets="Build">
+        <GetVersion AssemblyPath="$(OutDir)$(TargetFileName)">
+            <Output TaskParameter="Version" PropertyName="Version" />
+        </GetVersion>
+
+        <MakeDir Directories="$(TmpOutDir)content\$(Version)" />
+
+        <ItemGroup>
+            <ClientResources Include="$(ProjectDir)ClientResources\**\*" />
+        </ItemGroup>
+
+        <!-- Copy content that should be included in the zip file -->
+        <Copy 
+            SourceFiles="$(ProjectDir)module.config" 
+            DestinationFolder="$(TmpOutDir)content" />
+
+        <Copy 
+            SourceFiles="@(ClientResources)" 
+            DestinationFiles="@(ClientResources -> '$(TmpOutDir)\content\$(Version)\ClientResources\%(RecursiveDir)%(Filename)%(Extension)')"/>
+
+        <!-- Update module config with the version information -->
+        <XmlPoke 
+            XmlInputPath="$(TmpOutDir)content\module.config" 
+            Query="/module/@clientResourceRelativePath" 
+            Value="$(Version)" />
+
+        <!-- Create the Zip file -->
+        <ZipDirectory
+          InputPath="$(TmpOutDir)\content"
+          OutputFileName="$(OutDir)$(TargetName).zip"
+          OverwriteExistingFile="true" />
+
+        <!-- Cleanup -->
+        <RemoveDir Directories="$(TmpOutDir)" /> 
+    </Target>
+</Project>
