@@ -99,4 +99,37 @@
             </treecomponent>
         </getacategories>
     </language>
+    <language name="Finnish" id="fi">
+        <contenttypes>
+            <categorydata>
+                <create>Uusi kategoria</create>
+                <name>Kategoria</name>
+                <newitemdefaultname>Uusi kategoria</newitemdefaultname>
+                <properties>
+                    <description>
+                        <caption>Kuvaus</caption>
+                    </description>
+                    <isselectable>
+                        <caption>Valittavissa</caption>
+                    </isselectable>
+                </properties>
+            </categorydata>
+        </contenttypes>
+        <cms>
+            <searchprovider>
+                <categories>
+                    <name>Kategoriat</name>
+                </categories>
+                <findcategories>
+                    <name>Find kategoriat</name>
+                </findcategories>
+            </searchprovider>
+        </cms>
+        <getacategories>
+            <treecomponent>
+                <title>Kategoriat</title>
+                <description>Geta kategorioiden ylläpito</description>
+            </treecomponent>
+        </getacategories>
+    </language>
 </languages>
