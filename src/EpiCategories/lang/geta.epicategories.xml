@@ -121,7 +121,7 @@
                     <name>Kategoriat</name>
                 </categories>
                 <findcategories>
-                    <name>Etsi kategorioita</name>
+                    <name>Find kategoriat</name>
                 </findcategories>
             </searchprovider>
         </cms>
