@@ -77,7 +77,7 @@ function (
         onChange: function (value) {
         },
 
-        postMixInProperties() {
+        postMixInProperties: function() {
             this.inherited(arguments);
 
             if (!this.store) {
