@@ -49,6 +49,7 @@ function (
         checked: false,
         hasContextMenu: true,
         store: null,
+        isSelectable: true,
         templateString: templateString,
 
         postCreate: function() {
@@ -59,7 +60,11 @@ function (
                 this.store = registry.get('epi.cms.contentdata');
             }
 
-            this._createCheckbox();
+            domClass.add(this.iconNode, "dijitHidden");
+
+            if (this.isSelectable) {
+                this._createCheckbox();
+            }
         },
 
         setSelected: function (/*Boolean*/selected) {
@@ -85,8 +90,6 @@ function (
                 if (!content.properties.isSelectable) {
                     return;
                 }
-
-                domClass.add(this.iconNode, "dijitHidden");
 
                 var container = domConstruct.create('span', {
                     'class': 'epi-checkboxNode dijitTreeExpando'

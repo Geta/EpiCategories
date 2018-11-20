@@ -43,6 +43,7 @@ function (
         searchArea: 'cms/categories',
         settings: null,
         value: [],
+        _typesToDisplay: null,
 
         constructor: function () {
             this.inherited(arguments);
@@ -52,7 +53,7 @@ function (
         buildRendering: function () {
             this.inherited(arguments);
 
-            var typeIdentifiers = this.allowedTypes,
+            var typeIdentifiers = this._getTypesToDisplay(),
                 model = this.model,
                 roots = this.roots || (model && model.roots);
 
@@ -93,8 +94,8 @@ function (
                 categorySettings: this.categorySettings,
                 roots: roots,
                 repositoryKey: this.repositoryKey,
-                allowedTypes: this.allowedTypes,
-                restrictedTypes: this.restrictedTypes,
+                allowedTypes: lang.clone(this.allowedTypes),
+                restrictedTypes: lang.clone(this.restrictedTypes),
                 typeIdentifiers: typeIdentifiers,
                 settings: this.settings
             });
@@ -131,7 +132,44 @@ function (
         _getValueAttr: function () {
             return this.tree.get('selectedContentLinks');
         },
-        
+
+        _getTypesToDisplay: function () {
+            if (!this._typesToDisplay) {
+
+                var typesToDisplay = [];
+                this._getContainerTypesRecursive(this.allowedTypes, typesToDisplay);
+                this._typesToDisplay = typesToDisplay;
+            }
+
+            return this._typesToDisplay;
+        },
+
+        _getContainerTypesRecursive: function (types, results, checkedTypes) {
+            if (!checkedTypes) {
+                checkedTypes = [];
+            }
+
+            array.forEach(types, lang.hitch(this, function (type) {
+                // To avoid infinite recursion, check if this type is already processed
+                if (array.indexOf(checkedTypes, type) === -1) {
+                    // Mark as checked
+                    checkedTypes.push(type);
+
+                    // Add the type itself if it isn't added already
+                    if (array.indexOf(results, type) === -1) {
+                        results.push(type);
+                    }
+
+                    // If there are any container types, process them as well
+                    var containerTypesForType = TypeDescriptorManager.getValue(type, "containerTypes");
+
+                    if (containerTypesForType) {
+                        this._getContainerTypesRecursive(containerTypesForType, results, checkedTypes);
+                    }
+                }
+            }));
+        },
+
         _setValueAttr: function (value) {
             this.tree.set('selectedContentLinks', value);
         }

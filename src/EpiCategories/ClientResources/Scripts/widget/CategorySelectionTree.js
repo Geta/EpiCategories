@@ -133,10 +133,16 @@ function (
             });
         },
 
-        _createTreeNode: function () {
-            var node = this.inherited(arguments);
+        _createTreeNode: function (args) {
+            args.isSelectable = this._isItemSelectable(args.item);
 
-            if (this._isItemSelectable(node.item)) {
+            var params = lang.mixin({}, args, {
+                dndData: args.item
+            });
+
+            var node = this.buildNodeFromTemplate(params);
+
+            if (args.isSelectable) {
                 node.connect(node, "onNodeSelectChanged", lang.hitch(this, function (checked, item) {
                     this._onNodeSelectChanged(checked, item);
                 }));
@@ -167,7 +173,7 @@ function (
         },
 
         _isItemSelectable: function (item) {
-            var acceptedTypes = TypeDescriptorManager.getValidAcceptedTypes([item.typeIdentifier], this.typeIdentifiers, this.restrictedTypes);
+            var acceptedTypes = TypeDescriptorManager.getValidAcceptedTypes([item.typeIdentifier], this.allowedTypes, this.restrictedTypes);
 
             return acceptedTypes.length > 0;
         },
