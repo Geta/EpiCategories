@@ -214,6 +214,11 @@ There is a couple of UrlHelper and UrlResolver extension methods included to get
 
 	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*ContentReference*/ categoryContentLink) // Single category
 	@UrlResolver.Current.GetCategoryRoutedUrl(/*ContentReference*/ contentLink, /*IEnumerable<ContentReference>*/ categoryContentLinks) // Multiple categories
+	
+## Show default Episerver category
+This package hides the default Episerver category property. You can opt-out from this by adding an app setting:
+
+    <add key="GetaEpiCategories:ShowDefaultCategoryProperty" value="true" />
 
 ## Package maintainer
 https://github.com/MattisOlsson
@@ -235,3 +240,7 @@ https://github.com/MattisOlsson
 
 1. Added ability to quickly create and auto publish new categories from selector dialog.
 2. Added new method in IContentInCategoryLocator: GetReferencesToCategories. This method finds all content with references to supplied categories.
+
+### 1.2.8
+
+1. Added app setting to show default Episerver category property: <add key="GetaEpiCategories:ShowDefaultCategoryProperty" value="true" />
