@@ -38,10 +38,15 @@ namespace Geta.EpiCategories
             typeof (CategoryData)
         };
 
-        public override IEnumerable<Type> LinkableTypes => new[]
+        public override IEnumerable<Type> LinkableTypes
         {
-            typeof (CategoryData)
-        };
+            get
+            {
+                return !CategorySettings.DisableCategoryAsLinkableType
+                    ? new[] {typeof(CategoryData)}
+                    : Enumerable.Empty<Type>();
+            }
+        }
 
         public override IEnumerable<ContentReference> Roots
         {
