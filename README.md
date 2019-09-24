@@ -224,6 +224,9 @@ This package hides the default Episerver category property. You can opt-out from
 https://github.com/MattisOlsson
 
 ## Changelog
+### Changes in version 1.2.9
+1. Implemented issue [#20 Setting to hide category in LinkModel dialog](https://github.com/Geta/EpiCategories/issues/20)
+
 ### Changes in version 1.2.0
 1. Updated to Episerver 11 (thanks [nolmsted](https://github.com/nolmsted))
 2. Moved CategoriesSearchProvider into it's own project to follow Episerver's decoupling of search. (thanks [nolmsted](https://github.com/nolmsted))
