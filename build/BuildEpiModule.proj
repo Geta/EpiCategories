@@ -65,12 +65,17 @@
 
         <ItemGroup>
             <ClientResources Include="$(ProjectDir)ClientResources\**\*" />
+            <Views Include="$(ProjectDir)Views\**\*" />
         </ItemGroup>
 
         <!-- Copy content that should be included in the zip file -->
         <Copy 
             SourceFiles="$(ProjectDir)module.config" 
             DestinationFolder="$(TmpOutDir)content" />
+
+        <Copy 
+            SourceFiles="@(Views)" 
+            DestinationFiles="@(Views -> '$(TmpOutDir)\content\Views\%(RecursiveDir)%(Filename)%(Extension)')"/>
 
         <Copy 
             SourceFiles="@(ClientResources)" 
