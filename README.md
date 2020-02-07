@@ -224,6 +224,9 @@ This package hides the default Episerver category property. You can opt-out from
 https://github.com/MattisOlsson
 
 ## Changelog
+### Changes in version 1.2.10
+1. Visitor group criteria added. (thanks to Mark Hall aka [lunchin](https://github.com/lunchin))
+
 ### Changes in version 1.2.9
 1. Implemented issue [#20 Setting to hide category in LinkModel dialog](https://github.com/Geta/EpiCategories/issues/20)
 
