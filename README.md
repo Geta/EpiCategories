@@ -191,7 +191,13 @@ Two routes are mapped during initialization. One for site categories and one for
 Using above example, the URL "/topics/sports/" would be routed to the site category called "Sports".
 
 ### ICategoryRoutableContent interface
-Implement this on your content type and it will be possible to route category URL segments with the help of a partial router shipped in this package. Let's say you have an article list page with the URL "/articles/" on your site. If you have a category with the url segment of "sports", you can add it to the end of your list page URL, "/articles/sports/", and the category data will be added to the route values with the key "currentCategory". Your controller action method could look something like this:
+Implement this on your content type:
+
+    public class ArticleListPage: PageData, ICategoryRoutableContent 
+	{
+	}
+
+  It will be possible to route category URL segments with the help of a partial router shipped in this package. Let's say you have an article list page with the URL "/articles/" on your site. If you have a category with the url segment of "sports", you can add it to the end of your list page URL, "/articles/sports/", and the category data will be added to the route values with the key "currentCategory". Your controller action method could look something like this:
 
 	public ActionResult Index(ArticleListPage currentPage, CategoryData currentCategory)
 	{
