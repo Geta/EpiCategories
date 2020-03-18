@@ -12,6 +12,7 @@
         <releaseNotes></releaseNotes>
         <copyright></copyright>
         <tags>Episerver, Geta</tags>
+        <iconUrl>https://cdn.geta.no/opensource/icons/Geta-logo-3.png</iconUrl>
         <dependencies>
             <dependency id="Geta.EpiCategories" version="1.2.0" />
         </dependencies>
