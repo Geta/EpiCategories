@@ -14,9 +14,9 @@
         <tags>Episerver, Geta</tags>
         <iconUrl>https://cdn.geta.no/opensource/icons/Geta-logo-3.png</iconUrl>
         <dependencies>
-            <dependency id="EPiServer.Framework" version="11.1.0" />
-            <dependency id="EPiServer.CMS.Core" version="11.1.0" />
-            <dependency id="EPiServer.CMS.UI.Core" version="11.1.0" />
+            <dependency id="EPiServer.Framework" version="11.9.0" />
+            <dependency id="EPiServer.CMS.Core" version="11.9.0" />
+            <dependency id="EPiServer.CMS.UI.Core" version="11.9.0" />
         </dependencies>
     </metadata>
     <files>
