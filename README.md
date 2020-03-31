@@ -26,7 +26,7 @@ or:
 
   
 ## How to use
-Start by creating a category content type that inherits from CategoryData. Note that CategoryData is included with the project, there is no need to create your own. You can have multiple.
+Start by creating a category content type that inherits from CategoryData. You can have multiple if you need. Note that CategoryData is included in the package, there is no need to create your own.
 
 	[ContentType]
 	public class BasicCategory : CategoryData
