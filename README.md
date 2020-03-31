@@ -26,7 +26,7 @@ or:
 
   
 ## How to use
-Start by creating a category content type that inherits from CategoryData. You can have multiple.
+Start by creating a category content type that inherits from CategoryData. Note that CategoryData is included with the project, there is no need to create your own. You can have multiple.
 
 	[ContentType]
 	public class BasicCategory : CategoryData
@@ -40,30 +40,6 @@ Start by creating a category content type that inherits from CategoryData. You c
 		public virtual XhtmlString MainBody { get; set; }
 	}
 
-CategoryData looks like this:
-
-    public class CategoryData : StandardContentBase, IRoutable
-    {
-        [UIHint(UIHint.PreviewableText)]
-        [CultureSpecific]
-        public virtual string RouteSegment { get; set; }
-
-        [Display(Order = 20)]
-        [UIHint(UIHint.LongString)]
-        [CultureSpecific]
-        public virtual string Description { get; set; }
-
-        [Display(Order = 30)]
-        [CultureSpecific]
-        public virtual bool IsSelectable { get; set; }
-
-        public override void SetDefaultValues(ContentType contentType)
-        {
-            base.SetDefaultValues(contentType);
-            IsSelectable = true;
-        }
-    }
-	
 ### Edit categories
 Instead of going to admin mode to manage categories, you now do it in edit mode, under the "Categories" tab in the main navigation component to the left. You work with them like normal pages, and it's possible to translate them. You can create categories that are shared between multiple sites or you can create site specific categories.
 
