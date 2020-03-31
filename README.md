@@ -48,11 +48,6 @@ Instead of going to admin mode to manage categories, you now do it in edit mode,
 ### ICategorizableContent interface
 Implement ICategorizableContent on your content type class to categorize your content.
 
-	public interface ICategorizableContent
-	{
-		IList<ContentReference> Categories { get; set; }
-	}
-	
 	public class MyPageType : PageData, ICategorizableContent
 	{
 		[Categories]
