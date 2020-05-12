@@ -207,7 +207,7 @@ https://github.com/MattisOlsson
 
 ## Changelog
 ### Changes in version 1.2.11
-1. Added new setting to allow hiding of disallowed root categories, see [#31 Category selection popup shows all categories instead of showing only allowed category: added criterion](https://github.com/Geta/EpiCategories/issues/31).)
+1. Added new setting to allow hiding of disallowed root categories, see [#31 Category selection popup shows all categories instead of showing only allowed category](https://github.com/Geta/EpiCategories/issues/31).)
 
 ### Changes in version 1.2.10
 1. Visitor group criteria added, see [pull request #26: added criterion](https://github.com/Geta/EpiCategories/pull/26). (thanks to Mark Hall aka [lunchin](https://github.com/lunchin))
