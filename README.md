@@ -196,11 +196,19 @@ There is a couple of UrlHelper and UrlResolver extension methods included to get
 This package hides the default Episerver category property. You can opt-out from this by adding an app setting:
 
     <add key="GetaEpiCategories:ShowDefaultCategoryProperty" value="true" />
+	
+## Hide disallowed root categories
+The default behavior is to show all categories in the selector, while it's only possible to select based on [AllowedTypes] setting. If you want to hide all root categories that doesn't match AllowedTypes you can add this app setting:
+
+    <add key="GetaEpiCategories:HideDisallowedRootCategories" value="true" />
 
 ## Package maintainer
 https://github.com/MattisOlsson
 
 ## Changelog
+### Changes in version 1.2.11
+1. Added new setting to allow hiding of disallowed root categories, see [#31 Category selection popup shows all categories instead of showing only allowed category: added criterion](https://github.com/Geta/EpiCategories/issues/31).)
+
 ### Changes in version 1.2.10
 1. Visitor group criteria added, see [pull request #26: added criterion](https://github.com/Geta/EpiCategories/pull/26). (thanks to Mark Hall aka [lunchin](https://github.com/lunchin))
 
