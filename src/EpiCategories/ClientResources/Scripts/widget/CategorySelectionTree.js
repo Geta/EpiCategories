@@ -178,6 +178,10 @@ function (
             return acceptedTypes.length > 0;
         },
 
+        _getItemDisableStyle: function (/* dojo/data/Item */ item) {
+            return this._isItemRestricted(item) ? " is-disabled " : "";
+        },
+
         _onContextMenuClose: function () {
             this._removeHighlightClass();
         },

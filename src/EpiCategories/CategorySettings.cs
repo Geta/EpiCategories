@@ -18,10 +18,16 @@ namespace Geta.EpiCategories
             {
                 DisableCategoryAsLinkableType = disableCategoryLinkableType;
             }
+
+            if (bool.TryParse(ConfigurationManager.AppSettings["GetaEpiCategories:HideDisallowedRootCategories"], out var hideDisallowedRootCategories))
+            {
+                HideDisallowedRootCategories = hideDisallowedRootCategories;
+            }
         }
 
         public int GlobalCategoriesRoot => _contentRepository.GetOrCreateGlobalCategoriesRoot().ID;
         public int SiteCategoriesRoot => _contentRepository.GetOrCreateSiteCategoriesRoot().ID;
         public bool DisableCategoryAsLinkableType { get; set; }
+        public bool HideDisallowedRootCategories { get; set; }
     }
 }

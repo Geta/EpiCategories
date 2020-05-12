@@ -134,6 +134,10 @@ function (
         },
 
         _getTypesToDisplay: function () {
+            if (this.categorySettings.hideDisallowedRootCategories) {
+                return this.allowedTypes;
+            }
+
             if (!this._typesToDisplay) {
 
                 var typesToDisplay = [];
