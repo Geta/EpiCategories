@@ -24,7 +24,7 @@ or:
 
 	Install-Package Geta.EpiCategories.Find
 
-  
+
 ## How to use
 Start by creating a category content type that inherits from CategoryData. You can have multiple if you need. Note that CategoryData is included in the package, there is no need to create your own.
 
@@ -85,74 +85,58 @@ The following extension methods are included:
 ### ICategoryContentLoader interface
 There is an implementation of ICategoryContentLoader (note that in 1.0.0 it is mistakenly named ICategoryContentRepository) that you can use to load categories:
 
-	public interface ICategoryContentLoader
-	{
-			T Get<T>(ContentReference categoryLink) where T : CategoryData;
-
-			IEnumerable<T> GetChildren<T>(ContentReference parentCategoryLink) where T : CategoryData;
-
-			IEnumerable<T> GetChildren<T>(ContentReference parentCategoryLink, CultureInfo culture) where T : CategoryData;
-
-			IEnumerable<T> GetChildren<T>(ContentReference parentCategoryLink, LoaderOptions loaderOptions) where T : CategoryData;
-
-			T GetFirstBySegment<T>(string urlSegment) where T : CategoryData;
-
-			T GetFirstBySegment<T>(string urlSegment, CultureInfo culture) where T : CategoryData;
-
-			T GetFirstBySegment<T>(string urlSegment, LoaderOptions loaderOptions) where T : CategoryData;
-
-			T GetFirstBySegment<T>(ContentReference parentLink, string urlSegment, LoaderOptions loaderOptions) where T : CategoryData;
-
-			IEnumerable<T> GetGlobalCategories<T>() where T : CategoryData;
-
-			IEnumerable<T> GetGlobalCategories<T>(CultureInfo culture) where T : CategoryData;
-
-			IEnumerable<T> GetGlobalCategories<T>(LoaderOptions loaderOptions) where T : CategoryData;
-
-			IEnumerable<T> GetSiteCategories<T>() where T : CategoryData;
-
-			IEnumerable<T> GetSiteCategories<T>(CultureInfo culture) where T : CategoryData;
-
-			IEnumerable<T> GetSiteCategories<T>(LoaderOptions loaderOptions) where T : CategoryData;
-
-			bool TryGet<T>(ContentReference categoryLink, out T category) where T : CategoryData;
-	}
+```
+public interface ICategoryContentLoader
+{
+    T Get<T>(ContentReference categoryLink) where T : CategoryData;
+    IEnumerable<T> GetChildren<T>(ContentReference parentCategoryLink) where T : CategoryData;
+    IEnumerable<T> GetChildren<T>(ContentReference parentCategoryLink, CultureInfo culture) where T : CategoryData;
+    IEnumerable<T> GetChildren<T>(ContentReference parentCategoryLink, LoaderOptions loaderOptions) where T : CategoryData;
+    T GetFirstBySegment<T>(string urlSegment) where T : CategoryData;
+    T GetFirstBySegment<T>(string urlSegment, CultureInfo culture) where T : CategoryData;
+    T GetFirstBySegment<T>(string urlSegment, LoaderOptions loaderOptions) where T : CategoryData;
+    T GetFirstBySegment<T>(ContentReference parentLink, string urlSegment, LoaderOptions loaderOptions) where T : CategoryData;
+    IEnumerable<T> GetGlobalCategories<T>() where T : CategoryData;
+    IEnumerable<T> GetGlobalCategories<T>(CultureInfo culture) where T : CategoryData;
+    IEnumerable<T> GetGlobalCategories<T>(LoaderOptions loaderOptions) where T : CategoryData;
+    IEnumerable<T> GetSiteCategories<T>() where T : CategoryData;
+    IEnumerable<T> GetSiteCategories<T>(CultureInfo culture) where T : CategoryData;
+    IEnumerable<T> GetSiteCategories<T>(LoaderOptions loaderOptions) where T : CategoryData;
+    bool TryGet<T>(ContentReference categoryLink, out T category) where T : CategoryData;
+}
+```
 
 Inject it in your controller as you are used to:
-	
-	public class MyController : Controller
-	{
-		private readonly ICategoryContentLoader _categoryLoader;
-		
-		public MyController(ICategoryContentLoader categoryLoader)
-		{
-			_categoryLoader = categoryLoader;	
-		}
-	}
-	
+
+```
+public class MyController : Controller
+{
+    private readonly ICategoryContentLoader _categoryLoader;
+
+    public MyController(ICategoryContentLoader categoryLoader)
+    {
+        _categoryLoader = categoryLoader;	
+    }
+}
+```
+
 ### IContentInCategoryLocator interface
 You can use IContentInCategoryLocator to find content in certain categories:
 
-    public interface IContentInCategoryLocator
-    {
-        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
-
-        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
-
-        IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
-
-        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
-
-        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
-
-        IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
-		
-        IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
-
-        IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
-
-        IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
-    }
+```
+public interface IContentInCategoryLocator
+{
+    IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetDescendents<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetChildren<T>(ContentReference contentLink, IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, CultureInfo culture) where T : ICategorizableContent, IContent;
+    IEnumerable<T> GetReferencesToCategories<T>(IEnumerable<ContentReference> categories, LoaderOptions loaderOptions) where T : ICategorizableContent, IContent;
+}
+```
 
 ## Routing
 Two routes are mapped during initialization. One for site categories and one for global categories. This means you can create templates for your category content types. They are routed in a similar way as normal pages. You can set the root segment on the "For This Site" and "For All Sites" category nodes in the Categories tree.
@@ -202,37 +186,13 @@ The default behavior is to show all categories in the selector, while it's only 
 
     <add key="GetaEpiCategories:HideDisallowedRootCategories" value="true" />
 
+## Sandbox App
+Sandbox application is testing poligon for pacakge new features and bug fixes.
+
+CMS username: epiadmin
+
+Password: 3p!Pass
+
 ## Package maintainer
 https://github.com/MattisOlsson
 
-## Changelog
-### Changes in version 1.2.11
-1. Added new setting to allow hiding of disallowed root categories, see [#31 Category selection popup shows all categories instead of showing only allowed category](https://github.com/Geta/EpiCategories/issues/31).)
-
-### Changes in version 1.2.10
-1. Visitor group criteria added, see [pull request #26: added criterion](https://github.com/Geta/EpiCategories/pull/26). (thanks to Mark Hall aka [lunchin](https://github.com/lunchin))
-
-### Changes in version 1.2.9
-1. Implemented issue [#20 Setting to hide category in LinkModel dialog](https://github.com/Geta/EpiCategories/issues/20)
-
-### Changes in version 1.2.8
-1. Added app setting to show default Episerver category property:
-
-    	<add key="GetaEpiCategories:ShowDefaultCategoryProperty" value="true" />
-
-### Changes in version 1.2.0
-1. Updated to Episerver 11 (thanks [nolmsted](https://github.com/nolmsted))
-2. Moved CategoriesSearchProvider into it's own project to follow Episerver's decoupling of search. (thanks [nolmsted](https://github.com/nolmsted))
-
-### Changes in version 1.1.1
-
-1. Fixed issue [#1 Add-On breaks Media path](https://github.com/Geta/EpiCategories/issues/1).
-
-### New features in version 1.1.0
-
-1. Added support for multiple categories in partial router. See [Routing](#routing) section.
-
-### New features in version 1.0.5
-
-1. Added ability to quickly create and auto publish new categories from selector dialog.
-2. Added new method in IContentInCategoryLocator: GetReferencesToCategories. This method finds all content with references to supplied categories.
