@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpiCategories", "src\EpiCategories\EpiCategories.csproj", "{7F23C8C8-D52D-4051-9EDD-3FB536ABBB35}"
 EndProject
@@ -14,6 +14,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{435F9D80
 		build\BuildEpiModule.proj = build\BuildEpiModule.proj
 		build\MSBuild.Community.Tasks.dll = build\MSBuild.Community.Tasks.dll
 		build\MSBuild.Community.Tasks.targets = build\MSBuild.Community.Tasks.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpiCategories.SandboxApp", "tests\EpiCategories.SandboxApp\EpiCategories.SandboxApp.csproj", "{FDF53D8F-0A04-4B77-A16F-486241E36FF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A509E446-375A-4F2F-B223-D0770990A557}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17857BB7-0225-4A23-80E4-6690A057A487}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -34,9 +44,16 @@ Global
 		{782F8E87-E09A-4C3C-BF73-79AA51DD7FC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{782F8E87-E09A-4C3C-BF73-79AA51DD7FC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{782F8E87-E09A-4C3C-BF73-79AA51DD7FC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDF53D8F-0A04-4B77-A16F-486241E36FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDF53D8F-0A04-4B77-A16F-486241E36FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDF53D8F-0A04-4B77-A16F-486241E36FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDF53D8F-0A04-4B77-A16F-486241E36FF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FDF53D8F-0A04-4B77-A16F-486241E36FF4} = {A509E446-375A-4F2F-B223-D0770990A557}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C00E4BD-2D90-4F27-A01D-37CA413936DB}
