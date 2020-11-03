@@ -187,7 +187,7 @@ The default behavior is to show all categories in the selector, while it's only 
     <add key="GetaEpiCategories:HideDisallowedRootCategories" value="true" />
 
 ## Sandbox App
-Sandbox application is testing poligon for pacakge new features and bug fixes.
+Sandbox application is testing poligon for package new features and bug fixes.
 
 CMS username: epiadmin
 
@@ -195,4 +195,3 @@ Password: 3p!Pass
 
 ## Package maintainer
 https://github.com/MattisOlsson
-
