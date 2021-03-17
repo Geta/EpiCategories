@@ -8,7 +8,7 @@ using EPiServer.Web.Routing;
 namespace Geta.EpiCategories
 {
     [AvailableContentTypes(Availability = Availability.Specific, Include = new[] { typeof(CategoryData) })]
-    [ContentType]
+    [ContentType(GUID = "9eba3e01-21b3-416e-b335-4911b07cf106", AvailableInEditMode = false)]
     public class CategoryData : StandardContentBase, IRoutable
     {
         private string _routeSegment;
