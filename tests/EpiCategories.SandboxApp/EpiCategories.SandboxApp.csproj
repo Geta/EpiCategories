@@ -290,6 +290,7 @@
     <Compile Include="Business\UIDescriptors\ContainerPageUIDescriptor.cs" />
     <Compile Include="Controllers\BasicCategoryController.cs" />
     <Compile Include="Controllers\ContactBlockController.cs" />
+    <Compile Include="Controllers\StandardPageController.cs" />
     <Compile Include="Controllers\DefaultPageController.cs" />
     <Compile Include="Controllers\ImageFileController.cs" />
     <Compile Include="Controllers\PageControllerBase.cs" />
