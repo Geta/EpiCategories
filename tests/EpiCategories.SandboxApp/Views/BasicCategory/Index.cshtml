@@ -1,0 +1,9 @@
+@using EpiCategories.SandboxApp.Models.Categories
+@model BasicCategory
+
+@{ Layout = null; }
+
+<h1>@Html.PropertyFor(x => x.Name)</h1>
+
+@Html.LabelFor(x => x.IsOverview)
+@Html.PropertyFor(x => x.IsOverview)
