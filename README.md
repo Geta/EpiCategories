@@ -1,7 +1,7 @@
 # EpiCategories
 
 * Master<br>
-![](http://tc.geta.no/app/rest/builds/buildType:(id:GetaPackages_EPiCategories_00ci_2),branch:master/statusIcon)
+![](http://teamcity.getatools.ai/app/rest/builds/buildType:(id:GetaPackages_EPiCategories_00ci_2),branch:master/statusIcon)
 
 ## Description
 An alternative to Episerver's default category functionality, where categories are instead stored as localizable IContent.
