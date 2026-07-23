@@ -32,7 +32,7 @@ namespace Geta.EpiCategories.Extensions
                 LanguageLoaderOption.FallbackWithMaster()
             };
 
-            var rootCategory = contentRepository.GetChildren<CategoryRoot>(parentLink, loaderOptions).FirstOrDefault();
+            var rootCategory = contentRepository.GetChildren<CategoryRoot>(parentLink, loaderOptions).OrderBy(root => root.ContentLink.ID).FirstOrDefault();
 
             if (rootCategory != null)
             {
